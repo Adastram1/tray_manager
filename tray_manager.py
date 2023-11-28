@@ -6,27 +6,49 @@ from plyer import notification as plyer_notification
 import tkinter as tk
 import time
 from enum import Enum
-import types
+from types import FunctionType
 from functools import partial
 
 
-Lang = {"Test1": "Test", "Test2": "Test2", "Test3": "Test3"}
 
-
-
-
-class Menu():
-    class Default(Enum):
+class Default(Enum):
         DEFAULT = "DefaultValue"
 
 
-    class ItemType(Enum):
-        LABEL = "LabelType"
-        BUTTON = "ButtonType"
-        CHECK = "CheckType"
-        SUBMENU = "SubmenuType"
-        SEPARATOR = "SeparatorType"
+class ItemType(Enum):
+    LABEL = "LabelType"
+    BUTTON = "ButtonType"
+    CHECK = "CheckType"
+    SUBMENU = "SubmenuType"
+    SEPARATOR = "SeparatorType"
 
+
+tray = traymanager
+tray.menu.add_
+class Items():
+    class Submenu():
+        def __init__(self):
+            self.submenu = pystray_MenuItem()
+            print()
+
+class Menu():
+    class Submenu():
+        def __init__(self):
+            self.items = []
+
+        def add_item(self, item_type: ItemType):
+            return
+        
+    def __init__(self):
+        self.items = []
+        if type == submenu #TODO
+
+    def add_item(self, item_type: ItemType):
+        if item_type == ItemType.SUBMENU:
+            submenu = Menu.Submenu()
+            self.items.append(submenu)
+            return submenu
+    
 
     def __init__(self):
         """Create a pystray.MenuItem \n
@@ -36,9 +58,23 @@ class Menu():
         self.ItemsFromID = {} # id: pystray.MenuItem, (DicKey, callback, item_type, {"current": bool | None, "requested": bool | None}, index)
         self.IDsFromItem = {} # pystray.MenuItem: id
 
+    
+    class Item():
+        class Label():
+            def __init__(self, text: str, index: int = None):
+                self.item = pystray_MenuItem(text)
 
+        class CreateButton():
+            def __init__(self, text: str, callback: FunctionType, index: int = None):
+                self.item = pystray_MenuItem(text, callback)
 
-    def create_item(self, DicKey: str = "TEST", callback: types.FunctionType | None = None, item_type: ItemType = ItemType.LABEL, checkdefault: bool = False, index: int | None = None, FORCE_ID: int | None = None):
+        class CreateCheckbox():
+            def __init__(self, text: str, callback: FunctionType, default_status: bool = False,  index: int = None):
+                partial(update_status, callback)
+                self.item = pystray_MenuItem(text, callback, checked= lambda: status)
+
+            
+    def create_item(self, DicKey: str, callback: FunctionType | None = None, item_type: ItemType = ItemType.LABEL, checkdefault: bool = False, index: int | None = None, FORCE_ID: int | None = None):
         """Create an item that will be displayed in the options of the app notification in the notification tray\n
             Parameters
             ----------
@@ -322,7 +358,7 @@ class Menu():
 
 
 class TrayManager():
-    def __init__(self, Menu: Menu, AppName: str = "Test App", ImagePath: str | None = None, Icon: Image.Image | None = None, Lang: str = "en", default_show: bool = False):
+    def __init__(self, Menu: Menu, AppName: str, ImagePath: str | None = None, Icon: Image.Image | None = None, Lang: str = "en", default_show: bool = False):
         """Create a pystray.Icon object linked to a Menu() object\n
             Parameters
             ----------
