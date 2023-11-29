@@ -8,7 +8,7 @@ import time
 from enum import Enum
 from types import FunctionType
 from functools import partial
-
+from abc import abstractmethod
 
 
 class Default(Enum):
@@ -23,32 +23,134 @@ class ItemType(Enum):
     SEPARATOR = "SeparatorType"
 
 
-tray = traymanager
-tray.menu.add_
-class Items():
-    class Submenu():
-        def __init__(self):
-            self.submenu = pystray_MenuItem()
-            print()
+class Menu:
+    class Item:
+        @abstractmethod
+        def __create_item(self) -> pystray_MenuItem | pystray_Menu:
+            pass
 
-class Menu():
-    class Submenu():
+    class Label(Item):
+        def __init__(self, text: str):
+            """Create a Label item\n
+            Parameters
+            ----------
+            * text: str\n
+            The text of the button"""
+
+            self.text = text
+            self.__create_item()
+            return
+
+
+        def edit(self, text: str):
+            """Edit the Label item\n
+            Parameters
+            ----------
+            * text: str\n
+            The text of the button"""
+
+            self.text = text
+            self.__create_item()
+            return
+
+
+        def __create_item(self):
+            """Create the pystray_MenuItem Label object"""
+            self.item = pystray_MenuItem(self.text)
+            return
+        
+
+
+    class Button(Item):
+        def __init__(self, text: str, callback: FunctionType | None):
+            """Create a Button item\n
+            Parameters
+            ----------
+            * text: str\n
+            The text of the button
+            * callback: FunctionType | None\n
+            The function to callback when button is clicked, if None, don't callback"""
+
+            self.text = text
+            self.callback = callback
+            self.__create_item()
+            return
+        
+        def edit(self, text: str = Default.DEFAULT, callback: FunctionType | None = Default.DEFAULT):
+            """Edit the Button item\n
+            Parameters
+            ----------
+            * text: str\n
+            The text of the button, if not specified, don't change
+            * callback: FunctionType | None\n
+            The function to callback when button is clicked, if None, don't callback, if not specified, don't change"""
+
+            #Set new values, if Default.DEFAUT, don't change
+            if text != Default.DEFAULT:
+                self.text = text
+            if callback != Default.DEFAULT:
+                self.callback = callback
+            #Create our item
+            self.__create_item()
+            return
+
+        def __create_item(self):
+            """Create the pystray_MenuItem Button object"""
+            self.item = pystray_MenuItem(self.text, self.callback)
+            return
+        
+
+
+    class CheckBox(Item):
+        def __init__(self, text: str, callback: FunctionType | None, check_default: bool | None):
+            """Create a CheckBox item\n
+            Parameters
+            ----------
+            * text: str\n
+            The text of the button
+            * callback: FunctionType | None\n
+            The function to callback when button is clicked, if None, don't callback
+            * check_default: bool | None\n
+            The status of the checkbox at start (checked (True) / not checked (False)) if None, don't use check option"""
+
+            self.text = text
+            self.callback = callback
+            self.check_default = check_default
+            self.__create_item()
+            return
+        
+        def edit(self, text: str = Default.DEFAULT):
+            return
+        
+        
+
+
+    class Submenu(Item):
         def __init__(self):
             self.items = []
 
-        def add_item(self, item_type: ItemType):
+
+
+
+    class Separator(Item):
+        def __init__(self):
             return
-        
+
+
     def __init__(self):
         self.items = []
-        if type == submenu #TODO
+        
 
-    def add_item(self, item_type: ItemType):
-        if item_type == ItemType.SUBMENU:
-            submenu = Menu.Submenu()
-            self.items.append(submenu)
-            return submenu
+    def add_item(self, item: Item):
+            return
     
+    def remove_item(self, item: Items.Label | Items.Button | Items.CheckBox | Items.Separator | Items.Submenu):
+        return
+    
+
+
+
+
 
     def __init__(self):
         """Create a pystray.MenuItem \n
