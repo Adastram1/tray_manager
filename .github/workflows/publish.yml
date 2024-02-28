@@ -19,7 +19,7 @@ permissions:
 jobs:
   deploy:
 
-    runs-on: windows-latest
+    runs-on: unbuntu-latest
 
     steps:
     - uses: actions/checkout@v3
