@@ -1,7 +1,7 @@
 from setuptools import setup, find_packages
 
 
-VERSION = '0.1.2'
+VERSION = '0.1.4'
 DESCRITPION = 'An "easier" version of the pystray package'
 LONG_DESCRIPTION = 'A package for adding a system tray icon, based on pystray, this package is an "easier" version of pystray to manipulate'
 
