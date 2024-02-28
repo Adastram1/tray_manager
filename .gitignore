@@ -1,0 +1,7 @@
+Test.py
+Upload Package.txt
+
+
+
+dist/*
+tray_manager.egg-info/*
