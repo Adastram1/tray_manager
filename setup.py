@@ -14,9 +14,12 @@ setup(
     description=DESCRITPION,
     long_description=LONG_DESCRIPTION,
     packages=find_packages(),
-    requires=[
-        line.strip() for line in open('requirements.txt')
-    ],
+    requires=['pystray',
+             'pillow',
+             'enum',
+             'typing',
+             'types'
+             ],
     keywords=['python', 'manager', 'system tray', 'pystray'],
     classifiers=[
         "Development Status :: 1 - Planning",
