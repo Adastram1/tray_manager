@@ -1,9 +1,8 @@
 from setuptools import setup, find_packages
 import requests
 
-
 response = requests.get("https://pypi.org/pypi/tray-manager/json")
-new_version = ""
+new_version = ''
 
 if response.status_code == 200:
     version: str = response.json()['info']['version']
@@ -14,6 +13,15 @@ VERSION = new_version
 DESCRITPION = 'An "easier" version of the pystray package'
 LONG_DESCRIPTION = 'A package for adding a system tray icon, based on pystray, this package is an "easier" version of pystray to manipulate'
 
+libs = ['pystray',
+         'pillow',
+         'enum',
+         'typing',
+         'types',
+         'requests'
+         ]
+
+
 # Setting up
 setup(
     name="tray_manager",
@@ -22,19 +30,15 @@ setup(
     author_email="",
     description=DESCRITPION,
     long_description=LONG_DESCRIPTION,
-    packages=find_packages(),
-    requires=['pystray',
-             'pillow',
-             'enum',
-             'typing',
-             'types',
-             'requests'
-             ],
+    packages=libs,
+    install_requires=libs,
+    requires=libs,
     keywords=['python', 'manager', 'system tray', 'pystray'],
     classifiers=[
         "Development Status :: 1 - Planning",
         "Intended Audience :: Developers",
         "Programming Language :: Python :: 3",
         "Operating System :: Microsoft :: Windows",
-    ]
+    ],
+    Homepage="https://github.com/Adastram1/tray_manager"
 )
