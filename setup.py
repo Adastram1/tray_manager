@@ -27,7 +27,8 @@ setup(
              'pillow',
              'enum',
              'typing',
-             'types'
+             'types',
+             'requests'
              ],
     keywords=['python', 'manager', 'system tray', 'pystray'],
     classifiers=[
