@@ -1,44 +1,29 @@
 from setuptools import setup, find_packages
-import requests
-
-response = requests.get("https://pypi.org/pypi/tray-manager/json")
-new_version = ''
-
-if response.status_code == 200:
-    version: str = response.json()['info']['version']
-    last_digit = version.split('.')[-1]
-    new_version = version.removesuffix(last_digit) + f"{int(last_digit) + 1}"
-
-VERSION = new_version
-DESCRITPION = 'An "easier" version of the pystray package'
-LONG_DESCRIPTION = 'A package for adding a system tray icon, based on pystray, this package is an "easier" version of pystray to manipulate'
-
-libs = ['pystray',
-         'pillow',
-         'enum',
-         'typing',
-         'types',
-         'requests'
-         ]
-
 
 # Setting up
 setup(
     name="tray_manager",
-    version=VERSION,
-    author="Adastram (Github : Adastram1)",
+    version=open('version.info').read(),
+    url="https://github.com/Adastram1/tray_manager",
+    license="GNU Lesser General Public License v3 (LGPLv3)",
+
+    author="Adastram",
     author_email="",
-    description=DESCRITPION,
-    long_description=LONG_DESCRIPTION,
-    packages=libs,
-    install_requires=libs,
-    requires=libs,
+    
+    description='An "easier" version to use of the pystray librairy (https://github.com/moses-palmer/pystray by Moses Palmér)',
+    long_description=open('README.md').read(),
+    long_description_content_type="text/markdown",
+
+    packages=find_packages(),
+    include_package_data=True,
+    requires=['pystray', 'pillow', 'enum', 'typing', 'types', 'threading'],
+
     keywords=['python', 'manager', 'system tray', 'pystray'],
     classifiers=[
-        "Development Status :: 1 - Planning",
+        "Development Status :: 3 - Alpha",
         "Intended Audience :: Developers",
         "Programming Language :: Python :: 3",
         "Operating System :: Microsoft :: Windows",
-    ],
-    Homepage="https://github.com/Adastram1/tray_manager"
+        "OSI Approved :: GNU Lesser General Public License v3 (LGPLv3)",
+    ]
 )
