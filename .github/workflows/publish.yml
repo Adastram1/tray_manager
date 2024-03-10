@@ -12,6 +12,7 @@ on:
   push:
     branches:
     - release/*
+    - main
 
 permissions:
   contents: read
@@ -22,23 +23,34 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v3.4.0
     - name: Set up Python
-      uses: actions/setup-python@v3
+      uses: actions/setup-python@v3.2.0
       with:
         python-version: '3.x'
+    - name: Cache dependencies
+      uses: actions/cache@v3.0.0
+      with:
+        path: ~/.cache/pip
+        key: ${{ runner.os }}-pip-${{ hashFiles('**/requirements.txt') }}
+        restore-keys: |
+          ${{ runner.os }}-pip-
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
         pip install -r requirements.txt
-        pip install setuptools
-        pip install requests
         pip install build
-        
     - name: Build package
-      run: python -m build --no-isolation
+      run: python -m build
+    - name: Check package
+      run: |
+        if [ ! -f dist/*.tar.gz ]; then
+          echo "Package build failed."
+          exit 1
+        fi
     - name: Publish package
       uses: pypa/gh-action-pypi-publish@27b31702a0e7fc50959f5ad993c78deac1bdfc29
       with:
         user: __token__
         password: ${{ secrets.PYPI_API_TOKEN }}
+
