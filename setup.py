@@ -1,26 +1,30 @@
 from setuptools import setup, find_packages
 
-
-VERSION = '0.1.5'
-DESCRITPION = 'An "easier" version of the pystray package used to create app in the system tray'
-LONG_DESCRIPTION = 'A package for adding a system tray app, based on pystray, this package is an "easier" version of pystray to manipulate'
-
 # Setting up
 setup(
     name="tray_manager",
-    version=VERSION,
-    author="Adastram (Github : Adastram1)",
-    author_email="",
+    version="0.1.5",
     url="https://github.com/Adastram1/tray_manager",
-    description=DESCRITPION,
-    long_description=LONG_DESCRIPTION,
+    license="GNU Lesser General Public License v3 (LGPLv3)",
+
+    author="Adastram",
+    author_email="",
+    
+    description='An "easier" version to use of the pystray librairy (https://github.com/moses-palmer/pystray by Moses Palmér)',
+    long_description=open('README.md').read(),
+    long_description_content_type="text/markdown",
+
     packages=find_packages(),
-    requires=['pystray', 'typing', 'types', 'threading', 'pillow', 'enum'],
+    include_package_data=True,
+    requires=['pystray', 'pillow', 'enum', 'typing', 'types', 'threading'],
+
     keywords=['python', 'manager', 'system tray', 'pystray'],
     classifiers=[
-        "Development Status :: 1 - Planning",
+        "Development Status :: 3 - Alpha",
         "Intended Audience :: Developers",
-        "Programming Language :: Python :: 3",
+        "License :: OSI Approved :: GNU Lesser General Public License v3 (LGPLv3)",
         "Operating System :: Microsoft :: Windows",
+        "Programming Language :: Python",
+        "Programming Language :: Python :: 3"
     ]
 )
