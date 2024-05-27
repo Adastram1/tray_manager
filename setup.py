@@ -1,9 +1,9 @@
 from setuptools import setup, find_packages
 
 
-VERSION = '0.1.2'
-DESCRITPION = 'An "easier" version of the pystray package'
-LONG_DESCRIPTION = 'A package for adding a system tray icon, based on pystray, this package is an "easier" version of pystray to manipulate'
+VERSION = '0.1.5'
+DESCRITPION = 'An "easier" version of the pystray package used to create app in the system tray'
+LONG_DESCRIPTION = 'A package for adding a system tray app, based on pystray, this package is an "easier" version of pystray to manipulate'
 
 # Setting up
 setup(
@@ -11,6 +11,7 @@ setup(
     version=VERSION,
     author="Adastram (Github : Adastram1)",
     author_email="",
+    url="https://github.com/Adastram1/tray_manager",
     description=DESCRITPION,
     long_description=LONG_DESCRIPTION,
     packages=find_packages(),
