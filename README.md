@@ -1,18 +1,16 @@
 # What is tray_manager ?
 TrayManager is a package for adding a system tray icon, based on pystray (https://github.com/moses-palmer/pystray by Moses Palmér), this package is an "easier" version of pystray to manipulate based on the use of object (Object Oriented Programming).
 
-# Example
-
 # Usage
-1. [Create a TrayManager object]("https://github.com/Adastram1/tray_manager/edit/main/README.md#create-a-traymanager-object")
-2. [Create and interact with Items]("")
-3. [Add items to the Menu]("")
-4. [Customize the TrayManager object]("")
-5. [Customize and edit the items]("")
-6. [Check for OS supported features]("")
-7. [Notifications]("") [CURRENTLY UNAVAIBLE]
-8. [Advanced settings]("")
-9. [Examples]("")
+1. [Create a TrayManager object]("https://github.com/Adastram1/tray_manager/blob/main/README.md#create-a-traymanager-object")
+2. [Create and interact with Items]("https://github.com/Adastram1/tray_manager/blob/main/README.md#create-and-interact-with-items")
+3. [Add items to the Menu]("https://github.com/Adastram1/tray_manager/blob/main/README.md#add-the-items-to-the-menu")
+4. [Customize the TrayManager object]("https://github.com/Adastram1/tray_manager/blob/main/README.md#customize-the-traymanager-object")
+5. [Customize and edit the items]("https://github.com/Adastram1/tray_manager/blob/main/README.md#customize-and-edit-the-items")
+6. [Check for OS supported features]("https://github.com/Adastram1/tray_manager/blob/main/README.md#check-for-os-supported-features")
+7. [Notifications]("https://github.com/Adastram1/tray_manager/blob/main/README.md#notifications-currently-unavaible") [CURRENTLY UNAVAIBLE]
+8. [Advanced settings]("https://github.com/Adastram1/tray_manager/blob/main/README.md#advanced-settings")
+9. [Examples]("https://github.com/Adastram1/tray_manager/blob/main/README.md#examples")
 
 ## Create a TrayManager Object
 The main object of the librairie is the TrayManager object, it is the central element and can be considered as the icon in the system tray itself, it contains all the elements of our app.
@@ -27,11 +25,11 @@ tray = TrayManager(app_name="My App")
 The items are the elements of your app, they will be displayed in the menu they're added to. Their is different kinds of items that all works in a similar way but each have some specificities. 
 
 Here is the list of all the items :
-1. [Label]("")
-2. [Button]("")
-3. [CheckBox]("")
-4. [Separator]("")
-5. [Submenu]("")
+1. [Label]("https://github.com/Adastram1/tray_manager/blob/main/README.md#label")
+2. [Button]("https://github.com/Adastram1/tray_manager/blob/main/README.md#button")
+3. [CheckBox]("https://github.com/Adastram1/tray_manager/blob/main/README.md#checkbox")
+4. [Separator]("https://github.com/Adastram1/tray_manager/blob/main/README.md#separator")
+5. [Submenu]("https://github.com/Adastram1/tray_manager/blob/main/README.md#submenu")
 
 ### Label
 The label is the most basic item, it is only constituated of a text.
