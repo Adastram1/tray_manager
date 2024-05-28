@@ -594,8 +594,6 @@ class Submenu(Item):
         * item: Label | Button | CheckBox | Separator | Submenu\n
             The item to remove from the submenu."""
         
-        item.tray = None # We remove the tray argument to prevent the item from triggering a menu update when the item is edited but is not in the menu
-
         try: 
             index = self._items.index(item) # Try to get the item index
         except ValueError:
