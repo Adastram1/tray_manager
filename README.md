@@ -1,8 +1,14 @@
 # What is tray_manager ?
 TrayManager is a package for adding a system tray icon, based on pystray (https://github.com/moses-palmer/pystray by Moses Palmér), this package is an "easier" version of pystray to manipulate based on the use of object (Object Oriented Programming).
 
+# How do I install it ?
+tray_manager is publisehd on PyPi (https://pypi.org/project/tray-manager/) and can be downloaded by using :
+```shell
+pip install tray-manager
+```
+
 # Usage
-1. [Create a TrayManager object](https://github.com/Adastram1/tray_manager/blob/main/README.md#create-a-traymanager-object)
+1. [Create and use a TrayManager object](https://github.com/Adastram1/tray_manager/blob/main/README.md#create-and-use-a-traymanager-object)
 2. [Create and interact with Items](https://github.com/Adastram1/tray_manager/blob/main/README.md#create-and-interact-with-items)
 3. [Add items to the Menu](https://github.com/Adastram1/tray_manager/blob/main/README.md#add-the-items-to-the-menu)
 4. [Customize the TrayManager object](https://github.com/Adastram1/tray_manager/blob/main/README.md#customize-the-traymanager-object)
@@ -12,14 +18,17 @@ TrayManager is a package for adding a system tray icon, based on pystray (https:
 8. [Advanced settings](https://github.com/Adastram1/tray_manager/blob/main/README.md#advanced-settings)
 9. [Examples](https://github.com/Adastram1/tray_manager/blob/main/README.md#examples)
 
-## Create a TrayManager Object
-The main object of the librairie is the TrayManager object, it is the central element and can be considered as the icon in the system tray itself, it contains all the elements of our app.
+## Create and use a TrayManager Object
+The main object of the librairy is the TrayManager object, it is the central element and can be considered as the icon in the system tray itself, it contains all the elements of our app.
 
 To create one, you need to import the tray_manager.TrayManager class and create a tray object as followed :
 ```python
 from tray_manager import TrayManager
-tray = TrayManager(app_name="My App")
+my_tray = TrayManager(app_name="My App")
 ```
+
+To stop the app, you need to use the .kill() function (Note : The .kill() function returns all the items that were contained in the menu object) as followed (Note : The Menu and TrayManager objetcts become useless)
+
 
 ## Create and interact with Items
 The items are the elements of your app, they will be displayed in the menu they're added to. Their is different kinds of items that all works in a similar way but each have some specificities. 
@@ -137,7 +146,7 @@ my_label = Label("My Label")
 
 my_submenu.add(my_label)
 ```
-To remove an item to the submenu, you can use the .remove() function as followed : (Note : The .remove() function returns the item that was removed) 
+To remove an item from the submenu, you can use the .remove() function as followed : (Note : The .remove() function returns the item that was removed) 
 
 ```python
 from tray_manager import Submenu, Label
@@ -171,8 +180,76 @@ my_submenu.get_items()
 ```
 
 ## Add the items to the Menu
+Check tray_manager.OsSupport.HAS_MENU for disponibility on your OS. The menu is one of the central elements of this library, it works like a submenu but cannot be removed from the TrayManager object.
+
+It is created automatically when you create a TrayManager object if your OS support the menu. To acces it, you need to acces the TrayManager.menu object as followed : 
+```python
+from tray_manager import TrayManager
+my_tray = TrayManager("My App")
+my_menu = my_tray.menu
+```
+
+To add an item to the menu, you can use the .add() function as followed : 
+
+```python
+from tray_manager import TrayManager, Label
+my_tray = TrayManager("My App")
+my_menu = my_tray.menu
+
+my_label = Label("My Label")
+
+my_menu.add(my_label)
+```
+To remove an item from the menu, you can use the .remove() function as followed : (Note : The .remove() function returns the item that was removed) 
+
+```python
+from tray_manager import TrayManager, Label
+my_tray = TrayManager("My App")
+my_menu = my_tray.menu
+
+my_label = Label("My Label")
+my_menu.add(my_label)
+
+my_menu.remove(my_label)
+-> my_label
+```
+
+
+To get the items contained in a menu, you can use the .get_items() function as followed:
+
+```python
+from tray_manager import Menu, Label, Button
+
+def my_callback()
+  print("Hello")
+
+my_tray = TrayManager("My App")
+my_menu = my_tray.menu
+
+my_label = Label("My Label")
+my_button = Button("My Button", my_callback)
+
+my_menu.add(my_label)
+my_menu.add(my_button)
+
+my_menu.get_items()
+-> [my_label, my_button]
+```
+
+To update the menu display, you can use the function .update(). It is normally triggered every time you edit an item or the menu.
+```python
+from tray_manager import TrayManager
+my_tray = TrayManager("My App")
+my_menu = my_tray.menu
+
+my_menu.update()
+```
 
 ## Customize the TrayManager object
+You can customize your TrayManager object in different ways such as :
+1. Setting a new name for the app
+2. Setting a new icon
+3. Hiding / Showing the app in the system tray
 
 ## Customize and edit the items
 
