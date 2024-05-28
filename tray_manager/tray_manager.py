@@ -575,7 +575,8 @@ class Submenu(Item):
             if self.__check_recursion_loop(item): # Verify that their is no circular add
                 raise CircularAddException(self, item)
 
-        item.tray = self.tray
+        if self.tray:
+            item.tray = self.tray
         
         # Add the item to the submenu
         if index == -1:
