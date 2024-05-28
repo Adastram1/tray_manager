@@ -8,7 +8,7 @@ pip install tray-manager
 ```
 
 # Usage
-1. [Create a TrayManager object](https://github.com/Adastram1/tray_manager/blob/main/README.md#create-a-traymanager-object)
+1. [Create and use a TrayManager object](https://github.com/Adastram1/tray_manager/blob/main/README.md#create-and-use-a-traymanager-object)
 2. [Create and interact with Items](https://github.com/Adastram1/tray_manager/blob/main/README.md#create-and-interact-with-items)
 3. [Add items to the Menu](https://github.com/Adastram1/tray_manager/blob/main/README.md#add-the-items-to-the-menu)
 4. [Customize the TrayManager object](https://github.com/Adastram1/tray_manager/blob/main/README.md#customize-the-traymanager-object)
@@ -18,7 +18,7 @@ pip install tray-manager
 8. [Advanced settings](https://github.com/Adastram1/tray_manager/blob/main/README.md#advanced-settings)
 9. [Examples](https://github.com/Adastram1/tray_manager/blob/main/README.md#examples)
 
-## Create a TrayManager Object
+## Create and use a TrayManager Object
 The main object of the librairy is the TrayManager object, it is the central element and can be considered as the icon in the system tray itself, it contains all the elements of our app.
 
 To create one, you need to import the tray_manager.TrayManager class and create a tray object as followed :
@@ -26,6 +26,9 @@ To create one, you need to import the tray_manager.TrayManager class and create 
 from tray_manager import TrayManager
 my_tray = TrayManager(app_name="My App")
 ```
+
+To stop the app, you need to use the .kill() function (Note : The .kill() function returns all the items that were contained in the menu object) as followed (Note : The Menu and TrayManager objetcts become useless)
+
 
 ## Create and interact with Items
 The items are the elements of your app, they will be displayed in the menu they're added to. Their is different kinds of items that all works in a similar way but each have some specificities. 
@@ -243,6 +246,10 @@ my_menu.update()
 ```
 
 ## Customize the TrayManager object
+You can customize your TrayManager object in different ways such as :
+1. Setting a new name for the app
+2. Setting a new icon
+3. Hiding / Showing the app in the system tray
 
 ## Customize and edit the items
 
