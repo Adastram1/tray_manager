@@ -1,6 +1,12 @@
 # What is tray_manager ?
 TrayManager is a package for adding a system tray icon, based on pystray (https://github.com/moses-palmer/pystray by Moses Palmér), this package is an "easier" version of pystray to manipulate based on the use of object (Object Oriented Programming).
 
+# How do I install it ?
+tray_manager is publisehd on PyPi (https://pypi.org/project/tray-manager/) and can be downloaded by using :
+```shell
+pip install tray-manager
+```
+
 # Usage
 1. [Create a TrayManager object](https://github.com/Adastram1/tray_manager/blob/main/README.md#create-a-traymanager-object)
 2. [Create and interact with Items](https://github.com/Adastram1/tray_manager/blob/main/README.md#create-and-interact-with-items)
