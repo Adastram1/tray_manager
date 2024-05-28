@@ -730,6 +730,18 @@ class Menu:
         self.tray.tray.update_menu()
         return
     
+    def enable(self) -> None:
+        """Enable the menu"""
+        self._menu_state = True
+        self.update()
+        return
+    
+    def disable(self) -> None:
+        """Disable the menu"""
+        self._menu_state = False
+        self.update()
+        return
+    
     def _create_menu(self) -> list[pystray_MenuItem]:
         """Create the list of items composing the menu."""
         items: list[Label | Button | CheckBox | Separator | Submenu] = []
@@ -760,18 +772,6 @@ class Menu:
             return []
 
         return items
-
-    def enable(self) -> None:
-        """Enable the menu"""
-        self._menu_state = True
-        self.update()
-        return
-    
-    def disable(self) -> None:
-        """Disable the menu"""
-        self._menu_state = False
-        self.update()
-        return
 
 
 
