@@ -344,7 +344,7 @@ my_button = Button("My Button", my_first_callback)
 ```
 You can custom the items in different ways such as : 
 
-1. [Enabling / Disabling the item (Gray look and stop interactions)](https://github.com/Adastram1/tray_manager/blob/main/README.md#enabling--disabling-the-item-gray-look-and-non--responsive)
+1. [Enabling / Disabling the item (Gray look and non-responsive)](https://github.com/Adastram1/tray_manager/blob/main/README.md#enabling--disabling-the-item-gray-look-and-non-responsive)
 2. [Setting the default attribut to the item (Bold look)](https://github.com/Adastram1/tray_manager/blob/main/README.md#setting-the-default-attribut-to-the-item-bold-look)
 3. [Setting the radio look on the checkbox (A dot instead of a crossmark)](https://github.com/Adastram1/tray_manager/blob/main/README.md#setting-the-radio-look-on-the-checkbox-a-dot-instead-of-a-crossmark)
 
