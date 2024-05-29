@@ -13,7 +13,7 @@ pip install tray-manager
 3. [Add items to the Menu](https://github.com/Adastram1/tray_manager/blob/main/README.md#add-the-items-to-the-menu)
 4. [Customize the TrayManager object](https://github.com/Adastram1/tray_manager/blob/main/README.md#customize-the-traymanager-object)
 5. [Customize and edit the items](https://github.com/Adastram1/tray_manager/blob/main/README.md#customize-and-edit-the-items)
-6. [Check for OS supported features]("https://github.com/Adastram1/tray_manager/blob/main/README.md#check-for-os-supported-features)
+6. [Check for OS supported features](https://github.com/Adastram1/tray_manager/blob/main/README.md#check-for-os-supported-features)
 7. [Notifications](https://github.com/Adastram1/tray_manager/blob/main/README.md#notifications-currently-unavaible) [CURRENTLY UNAVAIBLE]
 8. [Advanced settings](https://github.com/Adastram1/tray_manager/blob/main/README.md#advanced-settings)
 9. [Examples](https://github.com/Adastram1/tray_manager/blob/main/README.md#examples)
@@ -247,9 +247,44 @@ my_menu.update()
 
 ## Customize the TrayManager object
 You can customize your TrayManager object in different ways such as :
-1. Setting a new name for the app
-2. Setting a new icon
-3. Hiding / Showing the app in the system tray
+
+1. [Setting a new name for the app]()
+2. [Setting a new icon for the app]()
+3. [Hiding / Showing the app in the system tray]()
+
+### Setting a new name for the app
+To set a new name for your app you can use the .set_app_name() function of the tray_manager.TrayManager object as followed :
+```python
+from tray_manager import TrayManager
+my_tray = TrayManager("My App")
+
+my_tray.set_app_name("My new App")
+```
+### Setting a new icon for the app
+tray_manager use a memory load system for icons, to set a new icon for your app, you first need to load it using the .load_icon(), then set the icon as the new icon using the .set_icon() functions of the tray_manager.TrayManager object.
+
+By default, the icon is a white square of 32x32 pixels. The default icon is always loaded in memory and can be set by passing the argument tray_manager.Values.DEFAULT to the .set_icon() function.
+
+To load an icon, you need to use the .load_icon() function of the tray_manager.TrayManager object and pass it an file path, a encoded image, a PIL.Image object or any file that can be read and interpreted as an image by PIL. You also need to pass a name that will be used as a key in the icons dictionnary to retreive your icon.
+
+```python
+from tray_manager import TrayManager
+my_tray = TrayManager("My App")
+
+my_tray.load_icon("my_icon_file_path.png", "my_new_icon")
+```
+
+To set an icon, you need to use the .set_icon() function of the tray_manager.TrayManager object and pass it the name (key) of your icon that you set when using .load_icon().
+
+```python
+from tray_manager import TrayManager
+my_tray = TrayManager("My App")
+
+my_tray.load_icon("my_icon_file_path.png", "my_new_icon")
+my_tray.set_icon("my_new_icon")
+```
+
+### Hiding / Showing the app in the system tray
 
 ## Customize and edit the items
 
