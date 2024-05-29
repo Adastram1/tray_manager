@@ -304,6 +304,27 @@ my_tray.hide()
 ```
 
 ## Customize and edit the items
+To edit an already created item, you can use the .edit() function of the item, when doing so, you only need to specify which arguments you want to change, and the others will stay the same as they were.
+
+To edit an item you can do as followed : 
+```python
+from tray_manager import Button
+
+def my_first_callback():
+  print("Hello")
+  my_button.edit(callback=my_second_callback)
+
+def my_second_callback():
+  print("World !")
+
+my_button = Button("My Button", my_first_callback)
+
+# When clicking on the button, this will display :
+# First click
+-> Hello
+# Second click
+-> World !
+```
 You can custom the items in different ways such as : 
 
 1. [Enabling / Disabling the item (Gray look and stop interactions)](https://github.com/Adastram1/tray_manager/blob/main/README.md#enabling--disabling-the-item-gray-look-and-non--responsive)
@@ -350,7 +371,54 @@ my_checkbox.disable()
 ```
 
 ### Setting the default attribut to the item (Bold look)
+To make your item the default of the menu / submenu and give it a bold look, you can set the default attribut when creating / editing the item. You can only have 1 default item by menu / submenu. By default, there is no default item.
+
+To set the default attribut of the item, you can do as followed : 
+
+When creating the item : 
+```python
+from tray_manager import Label
+my_label = Label("My Label", default=True)
+```
+
+When editing the item : 
+```python
+from tray_manager import Label
+my_label = Label("My Label")
+my_label.edit(default=True)
+```
+
 ### Setting the radio look on the checkbox (A dot instead of a crossmark)
+If you want to give a new look to your regular checkbox crossmark, you can use the use_radio_look attribut of the CheckBox when creating / editing the CheckBox.
+
+To set the use_radio_look attribut of the item, you can do as followed : 
+
+When creating the item : 
+```python
+from tray_manager import CheckBox
+
+def checked_callback():
+  print("Checked")
+
+def unchecked_callback():
+  print("Unchecked")
+
+my_checkbox = CheckBox("My CheckBox", checked_callback=checked_callback, unchecked_callback=unchecked_callback, use_radio_look=True)
+```
+
+When editing the item : 
+```python
+from tray_manager import CheckBox
+
+def checked_callback():
+  print("Checked")
+
+def unchecked_callback():
+  print("Unchecked")
+
+my_checkbox = CheckBox("My CheckBox", checked_callback=checked_callback, unchecked_callback=unchecked_callback)
+my_checkbox.edit(use_radio_look=True)
+```
 
 ## Check for OS supported features
 
