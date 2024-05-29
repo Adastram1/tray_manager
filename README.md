@@ -29,6 +29,24 @@ my_tray = TrayManager(app_name="My App")
 
 To stop the app, you need to use the .kill() function (Note : The .kill() function returns all the items that were contained in the menu object) as followed (Note : The Menu and TrayManager objetcts become useless)
 
+```python
+from tray_manager import TrayManager, Label, Button
+
+my_tray = TrayManager("My App", run_in_seperate_thread=True)
+my_menu = my_tray.menu
+
+def my_callback():
+  print("Hello")
+
+my_label = Label("My Label")
+my_button = Button("My Button", my_callback)
+
+my_menu.add(my_label)
+my_menu.add(my_button)
+
+my_tray.kill()
+-> [my_label, my_button]
+```
 
 ## Create and interact with Items
 The items are the elements of your app, they will be displayed in the menu they're added to. Their is different kinds of items that all works in a similar way but each have some specificities. 
@@ -64,7 +82,6 @@ def my_callback(text: str) -> None:
 
 my_button = Button("My Button", my_callback, args=("Hello",))
 ```
-
 
 
 ### CheckBox
@@ -185,7 +202,7 @@ Check tray_manager.OsSupport.HAS_MENU for disponibility on your OS. The menu is 
 It is created automatically when you create a TrayManager object if your OS support the menu. To acces it, you need to acces the TrayManager.menu object as followed : 
 ```python
 from tray_manager import TrayManager
-my_tray = TrayManager("My App")
+my_tray = TrayManager("My App", run_in_seperate_thread=True)
 my_menu = my_tray.menu
 ```
 
@@ -193,7 +210,7 @@ To add an item to the menu, you can use the .add() function as followed :
 
 ```python
 from tray_manager import TrayManager, Label
-my_tray = TrayManager("My App")
+my_tray = TrayManager("My App", run_in_seperate_thread=True)
 my_menu = my_tray.menu
 
 my_label = Label("My Label")
@@ -204,7 +221,7 @@ To remove an item from the menu, you can use the .remove() function as followed 
 
 ```python
 from tray_manager import TrayManager, Label
-my_tray = TrayManager("My App")
+my_tray = TrayManager("My App", run_in_seperate_thread=True)
 my_menu = my_tray.menu
 
 my_label = Label("My Label")
@@ -218,12 +235,12 @@ my_menu.remove(my_label)
 To get the items contained in a menu, you can use the .get_items() function as followed:
 
 ```python
-from tray_manager import Menu, Label, Button
+from tray_manager import TrayManager, Menu, Label, Button
 
 def my_callback()
   print("Hello")
 
-my_tray = TrayManager("My App")
+my_tray = TrayManager("My App", run_in_seperate_thread=True)
 my_menu = my_tray.menu
 
 my_label = Label("My Label")
@@ -239,7 +256,7 @@ my_menu.get_items()
 To update the menu display, you can use the function .update(). It is normally triggered every time you edit an item or the menu.
 ```python
 from tray_manager import TrayManager
-my_tray = TrayManager("My App")
+my_tray = TrayManager("My App", run_in_seperate_thread=True)
 my_menu = my_tray.menu
 
 my_menu.update()
@@ -256,7 +273,7 @@ You can customize your TrayManager object in different ways such as :
 To set a new name for your app you can use the .set_app_name() function of the tray_manager.TrayManager object as followed :
 ```python
 from tray_manager import TrayManager
-my_tray = TrayManager("My App")
+my_tray = TrayManager("My App", run_in_seperate_thread=True)
 
 my_tray.set_app_name("My new App")
 ```
@@ -269,7 +286,7 @@ To load an icon, you need to use the .load_icon() function of the tray_manager.T
 
 ```python
 from tray_manager import TrayManager
-my_tray = TrayManager("My App")
+my_tray = TrayManager("My App", run_in_seperate_thread=True)
 
 my_tray.load_icon("my_icon_file_path.png", "my_new_icon")
 ```
@@ -278,7 +295,7 @@ To set an icon, you need to use the .set_icon() function of the tray_manager.Tra
 
 ```python
 from tray_manager import TrayManager
-my_tray = TrayManager("My App")
+my_tray = TrayManager("My App", run_in_seperate_thread=True)
 
 my_tray.load_icon("my_icon_file_path.png", "my_new_icon")
 my_tray.set_icon("my_new_icon")
@@ -290,7 +307,7 @@ Instead of killing the tray_manager.TrayManager object when you want it to stop 
 To show the app in the system tray, you can use the .show() function of the the tray_manager.TrayManager object as followed : 
 ```python
 from tray_manager import TrayManager
-my_tray = TrayManager("My App")
+my_tray = TrayManager("My App", run_in_seperate_thread=True)
 
 my_tray.show()
 ```
@@ -298,7 +315,7 @@ my_tray.show()
 To hide the app in the system tray, you can use the .hide() function of the the tray_manager.TrayManager object as followed :
 ```python
 from tray_manager import TrayManager
-my_tray = TrayManager("My App")
+my_tray = TrayManager("My App", run_in_seperate_thread=True)
 
 my_tray.hide()
 ```
@@ -336,9 +353,7 @@ If you want to display the item but you want it to be non-responsive (for Button
 
 To enable your item, you can, use the .enable() function of the item as followed : 
 ```python
-from tray_manager import TrayManager, CheckBox
-my_tray =  TrayManager("My App")
-my_menu = my_tray.menu
+from tray_manager import CheckBox
 
 def checked_callback():
   print("Checked")
@@ -347,16 +362,13 @@ def unchecked_callback():
   print("Unchecked")
 
 my_checkbox = CheckBox("My CheckBox", checked_callback=checked_callback, unchecked_callback=unchecked_callback)
-my_menu.add(my_checkbox)
 
 my_checkbox.enable()
 ```
 
 To disable your item, you can, use the .disable() function of the item as followed : 
 ```python
-from tray_manager import TrayManager, CheckBox
-my_tray =  TrayManager("My App")
-my_menu = my_tray.menu
+from tray_manager import CheckBox
 
 def checked_callback():
   print("Checked")
@@ -365,7 +377,6 @@ def unchecked_callback():
   print("Unchecked")
 
 my_checkbox = CheckBox("My CheckBox", checked_callback=checked_callback, unchecked_callback=unchecked_callback)
-my_menu.add(my_checkbox)
 
 my_checkbox.disable()
 ```
