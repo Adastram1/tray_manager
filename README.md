@@ -248,9 +248,9 @@ my_menu.update()
 ## Customize the TrayManager object
 You can customize your TrayManager object in different ways such as :
 
-1. [Setting a new name for the app]()
-2. [Setting a new icon for the app]()
-3. [Hiding / Showing the app in the system tray]()
+1. [Setting a new name for the app](https://github.com/Adastram1/tray_manager/blob/main/README.md#setting-a-new-name-for-the-app)
+2. [Setting a new icon for the app](https://github.com/Adastram1/tray_manager/blob/main/README.md#setting-a-new-icon-for-the-app)
+3. [Hiding / Showing the app in the system tray](https://github.com/Adastram1/tray_manager/blob/main/README.md#hiding)
 
 ### Setting a new name for the app
 To set a new name for your app you can use the .set_app_name() function of the tray_manager.TrayManager object as followed :
@@ -285,6 +285,23 @@ my_tray.set_icon("my_new_icon")
 ```
 
 ### Hiding / Showing the app in the system tray
+Instead of killing the tray_manager.TrayManager object when you want it to stop being displayed in the system tray and creating a new one once you need it again, you can use the .show() and .hide() functions of the the tray_manager.TrayManager object to control whether the app is visible in the system tray or not. You can specify the default_show argument of the tray_manager.TrayManager object when creating it to define whether it will be displayed or not once the object is created.
+
+To show the app in the system tray, you can use the .show() function of the the tray_manager.TrayManager object as followed : 
+```python
+from tray_manager import TrayManager
+my_tray = TrayManager("My App")
+
+my_tray.show()
+```
+
+To hide the app in the system tray, you can use the .hide() function of the the tray_manager.TrayManager object as followed :
+```python
+from tray_manager import TrayManager
+my_tray = TrayManager("My App")
+
+my_tray.hide()
+```
 
 ## Customize and edit the items
 
