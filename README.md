@@ -306,11 +306,49 @@ my_tray.hide()
 ## Customize and edit the items
 You can custom the items in different ways such as : 
 
-1. [Enabling / Disabling the item]()
-2. [Setting the default attribut to the item (Bold look)]()
-3. [Setting the radio look on the checkbox (A dot instead of a crossmark)]()
+1. [Enabling / Disabling the item (Gray look and stop interactions)](https://github.com/Adastram1/tray_manager/blob/main/README.md#enabling--disabling-the-item-gray-look-and-non--responsive)
+2. [Setting the default attribut to the item (Bold look)](https://github.com/Adastram1/tray_manager/blob/main/README.md#setting-the-default-attribut-to-the-item-bold-look)
+3. [Setting the radio look on the checkbox (A dot instead of a crossmark)](https://github.com/Adastram1/tray_manager/blob/main/README.md#setting-the-radio-look-on-the-checkbox-a-dot-instead-of-a-crossmark)
 
-### Enabling / Disabling the item
+### Enabling / Disabling the item (Gray look and non-responsive)
+If you want to display the item but you want it to be non-responsive (for Button, CheckBox and Submenu) and look like a disabled item, you can use the .enable() and .disable() functions of the item. By default, every items are enabled. Note : every item can be disabled except for the separator.
+
+To enable your item, you can, use the .enable() function of the item as followed : 
+```python
+from tray_manager import TrayManager, CheckBox
+my_tray =  TrayManager("My App")
+my_menu = my_tray.menu
+
+def checked_callback():
+  print("Checked")
+
+def unchecked_callback():
+  print("Unchecked")
+
+my_checkbox = CheckBox("My CheckBox", checked_callback=checked_callback, unchecked_callback=unchecked_callback)
+my_menu.add(my_checkbox)
+
+my_checkbox.enable()
+```
+
+To disable your item, you can, use the .disable() function of the item as followed : 
+```python
+from tray_manager import TrayManager, CheckBox
+my_tray =  TrayManager("My App")
+my_menu = my_tray.menu
+
+def checked_callback():
+  print("Checked")
+
+def unchecked_callback():
+  print("Unchecked")
+
+my_checkbox = CheckBox("My CheckBox", checked_callback=checked_callback, unchecked_callback=unchecked_callback)
+my_menu.add(my_checkbox)
+
+my_checkbox.disable()
+```
+
 ### Setting the default attribut to the item (Bold look)
 ### Setting the radio look on the checkbox (A dot instead of a crossmark)
 
