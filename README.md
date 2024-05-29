@@ -1,3 +1,4 @@
+<!--Github Markdown doc : https://docs.github.com/fr/get-started/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax-->
 # What is tray_manager ?
 TrayManager is a package for adding a system tray icon, based on pystray (https://github.com/moses-palmer/pystray by Moses Palmér), this package is an "easier" version of pystray to manipulate based on the use of object (Object Oriented Programming).
 
