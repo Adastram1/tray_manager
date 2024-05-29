@@ -250,7 +250,7 @@ You can customize your TrayManager object in different ways such as :
 
 1. [Setting a new name for the app](https://github.com/Adastram1/tray_manager/blob/main/README.md#setting-a-new-name-for-the-app)
 2. [Setting a new icon for the app](https://github.com/Adastram1/tray_manager/blob/main/README.md#setting-a-new-icon-for-the-app)
-3. [Hiding / Showing the app in the system tray](https://github.com/Adastram1/tray_manager/blob/main/README.md#hiding)
+3. [Hiding / Showing the app in the system tray](https://github.com/Adastram1/tray_manager/blob/main/README.md#hiding--showing-the-app-in-the-system-tray)
 
 ### Setting a new name for the app
 To set a new name for your app you can use the .set_app_name() function of the tray_manager.TrayManager object as followed :
@@ -304,6 +304,15 @@ my_tray.hide()
 ```
 
 ## Customize and edit the items
+You can custom the items in different ways such as : 
+
+1. [Enabling / Disabling the item]()
+2. [Setting the default attribut to the item (Bold look)]()
+3. [Setting the radio look on the checkbox (A dot instead of a crossmark)]()
+
+### Enabling / Disabling the item
+### Setting the default attribut to the item (Bold look)
+### Setting the radio look on the checkbox (A dot instead of a crossmark)
 
 ## Check for OS supported features
 
