@@ -3,10 +3,12 @@
 TrayManager is a package for adding a system tray icon, based on pystray (https://github.com/moses-palmer/pystray by Moses Palmér), this package is an "easier" version of pystray to manipulate based on the use of object (Object Oriented Programming).
 
 # How do I install it ?
-tray_manager is publisehd on PyPi (https://pypi.org/project/tray-manager/) and can be downloaded by using :
+tray_manager is publisehd on PyPi (https://pypi.org/project/tray-manager/) and can be downloaded by using the following command in your terminal :
 ```shell
 pip install tray-manager
 ```
+> [!NOTE]
+> You need to have **python** installed on your computer
 
 # Usage
 1. [Create and use a TrayManager object](https://github.com/Adastram1/tray_manager/blob/main/README.md#create-and-use-a-traymanager-object)
@@ -22,13 +24,15 @@ pip install tray-manager
 ## Create and use a TrayManager Object
 The main object of the librairy is the TrayManager object, it is the central element and can be considered as the icon in the system tray itself, it contains all the elements of our app.
 
-To create one, you need to import the tray_manager.TrayManager class and create a tray object as followed :
+To create one, you need to import the `tray_manager.TrayManager` class and create a tray object as followed :
 ```python
 from tray_manager import TrayManager
 my_tray = TrayManager(app_name="My App")
 ```
 
-To stop the app, you need to use the .kill() function (Note : The .kill() function returns all the items that were contained in the menu object) as followed (Note : The Menu and TrayManager objetcts become useless)
+To stop the app, you need to use the `.kill()` function as followed : 
+> [!NOTE]
+> The `.kill()` function returns all the items that are contained in the menu as a list of items
 
 ```python
 from tray_manager import TrayManager, Label, Button
@@ -48,6 +52,15 @@ my_menu.add(my_button)
 my_tray.kill()
 -> [my_label, my_button]
 ```
+> [!IMPORTANT]
+> The Menu and TrayManager objects that you've killed will become useless
+
+> [!WARNING]
+> Creating a `tray_manager.TrayManager` object will run it's inner loop as soon as it is created. This means that creating a `tray_manager.TrayManager` object will block the rest of your code. To prevent that from happening, you have 2 options : 
+>
+> 1. You can specify a function as the `setup` attribut of the `tray_manager.TrayManager` object, this function will be started in a new thread when creating your object.
+> 
+> 2. **(Windows only)** If you're on Windows and you don't worry about compatibility with other platforms, you can set the `run_in_separate_thread` attribut of the `tray_manager.TrayManager` object to `True`, this will start the `tray_manager` loop in a new thread and the rest of your code will correctly be executed in the main loop.
 
 ## Create and interact with Items
 The items are the elements of your app, they will be displayed in the menu they're added to. Their is different kinds of items that all works in a similar way but each have some specificities. 
@@ -62,19 +75,17 @@ Here is the list of all the items :
 ### Label
 The label is the most basic item, it is only constituated of a text.
 
-To create one, you need to use the tray_manager.Label class as followed :
+To create one, use the `tray_manager.Label` class as followed :
 
 ```python
 from tray_manager import Label
 my_label = Label("My Label")
 ```
 
-
-
 ### Button
-The button is like the label item but you can add a callback argument (FunctionType) that will be called when the user clicks on the button. You can also specify some arguments as a tuple that will be passed too your function when the callback runs.
+The button is like the label item but you can add a callback argument (FunctionType) that will be called when the user clicks on the button. You can also specify some arguments as a tuple that will be passed to your function when the button is clicked.
 
-To create one, you need to use the tray_manager.Button class as followed : 
+To create one, use the `tray_manager.Button` class as followed : 
 
 ```python
 from tray_manager import Button
@@ -88,9 +99,12 @@ my_button = Button("My Button", my_callback, args=("Hello",))
 ### CheckBox
 The CheckBox item is a bit more complex than a regular button, it has 2 differents callbacks instead of 1 and different arguments for each, one for when the checkbox switch from the 'Disabled' to 'Enabled' state (Not checked to checked), and one for when it switch from the 'Enabled' to 'Disabled' state (Checked to not checked).
 
-You can 'Disable' the interactions with your checkbox by setting the value of check_default to None (Note : The callback won't be called if the user clicks on the checkbox when it is disabled).
+You can 'Disable' the interactions with your checkbox by setting the value of `check_default` to `None`.
 
-To create one, you need to use the tray_manager.CheckBox class as followed :
+> [!NOTE]
+> The callback won't be called if the user clicks on the checkbox when it is disabled.
+
+To create one, use the `tray_manager.CheckBox` class as followed :
 
 ```python
 from tray_manager import CheckBox
@@ -105,7 +119,7 @@ my_checkbox = CheckBox("My CheckBox", check_default=False, checked_callback=chec
                         unchecked_callback=unchecked, unchecked_callback_args=("I'm now unchecked",))
 ```
 
-To get the current state of the checkbox (checked : True | unchecked : False | disabled : None), you can use the .get_status() function as followed :
+To get the current state of the checkbox, you can use the .get_status() function as followed :
 
 ```python
 from tray_manager import CheckBox
@@ -131,24 +145,45 @@ my_checkbox.set_status(None)
 -> Disabled
 ```
 
+> [!NOTE]
+>
+> |   Checkbox    |   Status  |
+> |     :---:     |   :---:   |
+> |   Checked     |  `True`   |        
+> |   Unchecked   |  `False`  |
+> |   Disabled    |  `None`   |
+>
+> When the checkbox is disabled, it stays in it's previous state and stop interacting, this means that if the checkbox was checked before being disabled, the checkbox will stay checked but nothing will happen if the user click on it.
 
 
 ### Separator
-The separator is a built-in object of Pystray, it doesn't require any parameters.
+The separator is a built-in object of Pystray, it doesn't have any parameters.
 
-To create one, you need to use the tray_manager.Separator class as followed : 
+To create one, use the `tray_manager.Separator` class as followed : 
 
 ```python
 from tray_manager import Separator
 my_separator = Separator()
 ```
 
-
-
 ### Submenu
-The submenu is like a Menu() object and can contains other items including other submenu. Be carreful when adding submenu into each others as adding a submenu to itself will generate an tray_manager.CircularAddException error.
+The submenu is like a `tray_manager.Menu` object and can contains other items including other submenu.
 
-To create one, you need to use the tray_manager.Submenu as followed : 
+> [!CAUTION]
+> Be carreful when adding submenu into each others as adding a submenu to a submenu that is contained in the submenu you're adding will generate a `tray_manager.CircularAddException` error.
+> ```mermaid
+>  flowchart TD
+>    A{My Submenu} --> B(My Label)
+>    A --> C(My Button)
+>    A --> D{My Second Submenu}
+>    D --> E(My Second Label)
+>    D --> F(My Checkbox)
+>    D --> |❌| G{My Submenu}
+>    G -->|❌ tray_manager.CircularAddException| A
+> ```
+
+
+To create one, use the `tray_manager.Submenu` as followed : 
 
 ```python
 from tray_manager import Submenu
