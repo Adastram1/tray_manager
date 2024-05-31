@@ -178,7 +178,7 @@ The submenu is like a `tray_manager.Menu` object and can contains other items in
 >    A --> D{My Second Submenu}
 >    D --> E(My Second Label)
 >    D --> F(My Checkbox)
->    D --> |❌ tray_manager.CircularAddException| A{My Submenu}
+>    D --> |❌ tray_manager.CircularAddException| A
 > ```
 
 
