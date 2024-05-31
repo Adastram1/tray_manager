@@ -22,7 +22,7 @@ pip install tray-manager
 9. [Examples](https://github.com/Adastram1/tray_manager/blob/main/README.md#examples)
 
 ## Create and use a TrayManager Object
-The main object of the librairy is the TrayManager object, it is the central element and can be considered as the icon in the system tray itself, it contains all the elements of our app.
+The main object of the librairy is the `tray_manager.TrayManager` object, it is the central element and can be considered as the icon in the system tray itself, it contains all the elements of our app.
 
 To create one, you need to import the `tray_manager.TrayManager` class and create a tray object as followed :
 ```python
