@@ -33,7 +33,7 @@ class CircularAddException(Exception):
         self.added_submenu = added_submenu
 
     def __str__(self) -> str:
-        return f"""The submenu "{self.submenu.text}" ({self.submenu}) is contained in the submenu "{self.added_submenu._text}" ({self.added_submenu}) that you're trying to add. That is prohibited as it causes a circular add"""
+        return f"""The submenu "{self.submenu._text}" ({self.submenu}) is contained in the submenu "{self.added_submenu._text}" ({self.added_submenu}) that you're trying to add. That is prohibited as it causes a circular add"""
 
 class TooManyDefaultItems(Exception):
     def __init__(self, menu: Union['Menu', 'Submenu'], items: list[Union['Label', 'Button', 'CheckBox', 'Submenu']]) -> None:
@@ -89,14 +89,20 @@ class UnsuportedFeature(Exception):
         """Exception raised when a feature is called but isn't avaible on the OS."""
     
     def __str__(self) -> str:
-        return f"""The feature isn't supported on your os ({p_system()})."""
+        os = p_system()
+        if os == "":
+            os = "Unrecognised OS"
+        return f"""The feature isn't supported on your os ({os})."""
 
 class MenuNotSupported(UnsuportedFeature):
     def __init__(self) -> None:
         """Exception raised when the menu feature is called but isn't supported on the OS."""
     
     def __str__(self) -> str:
-        return f"""The menu feature isn't supported on your OS ({p_system()}). This feature is actually only supported on Windows (backend : win32), MacOS (backend : darwin) and Linux (backend gtk, appindicator and ayatana-appindicator)."""
+        os = p_system()
+        if os == "":
+            os = "Unrecognised OS"
+        return f"""The menu feature isn't supported on your OS ({os}). This feature is actually only supported on Windows (backend : win32), MacOS (backend : darwin) and Linux (backend gtk, appindicator and ayatana-appindicator)."""
 
 class DefaultNotSupported(UnsuportedFeature):
     def __init__(self, item: Union['Label', 'Button', 'CheckBox', 'Submenu']) -> None:
@@ -104,7 +110,10 @@ class DefaultNotSupported(UnsuportedFeature):
         self.item = item
 
     def __str__(self) -> str:
-        return f"""The default feature isn't supported on your OS ({p_system()}). This feature is actually only supported on Windows (backend : win32), and Linux (backend : gtk and xorg).\nException raised by "{self.item._text}" ({self.item})."""
+        os = p_system()
+        if os == "":
+            os = "Unrecognised OS"
+        return f"""The default feature isn't supported on your OS ({os}). This feature is actually only supported on Windows (backend : win32), and Linux (backend : gtk and xorg).\nException raised by "{self.item._text}" ({self.item})."""
 
 class RadioNotSupported(UnsuportedFeature):
     def __init__(self, item: 'CheckBox') -> None:
@@ -112,14 +121,20 @@ class RadioNotSupported(UnsuportedFeature):
         self.item = item
 
     def __str__(self) -> str:
-            return f"""The radio feature isn't supported on your OS ({p_system()}). This feature is actually only supported on Windows (backend : win32) and Linux (backend : gtk, xorg, appindicator and ayatana-appindicator).\nException raised by "{self.item._text}" ({self.item})."""
+        os = p_system()
+        if os == "":
+            os = "Unrecognised OS"
+        return f"""The radio feature isn't supported on your OS ({os}). This feature is actually only supported on Windows (backend : win32) and Linux (backend : gtk, xorg, appindicator and ayatana-appindicator).\nException raised by "{self.item._text}" ({self.item})."""
 
 class NotificationNotSupported(UnsuportedFeature):
     def __init__(self) -> None:
         """Exception raised when the notification feature is called but is not availbe on the OS."""
     
     def __str__(self) -> str:
-        return f"""The notification feature insn't supported on your OS ({p_system()})."""
+        os = p_system()
+        if os == "":
+            os = "Unrecognised OS"
+        return f"""The notification feature insn't supported on your OS ({os})."""
 
 class Values(Enum):
     """The class containing the custom values used in TrayManager."""
