@@ -305,7 +305,7 @@ my_menu = my_tray.menu
 my_menu.update()
 ```
 > [!NOTE]
-> It is triggered automatically every time you edit, add or remove an item from the menu.
+> The `.update()` function is triggered automatically every time you edit, add or remove an item from the menu.
 
 ## Customize the TrayManager object
 You can customize your TrayManager object in different ways such as :
@@ -323,14 +323,14 @@ my_tray = TrayManager("My App", run_in_seperate_thread=True)
 my_tray.set_app_name("My new App")
 ```
 ### Setting a new icon for the app
-tray_manager use a memory system for icons, to set a new icon for your app, you first need to load it using the `.load_icon()` function, then set the icon as the new icon using the `.set_icon()` function of the `tray_manager.TrayManager` object.
+`tray_manager` use a memory system for icons, to set a new icon for your app, you first need to load it using the `.load_icon()` function, then set the icon as the new icon using the `.set_icon()` function of the `tray_manager.TrayManager` object.
 
 > [!NOTE]
 > By default, the icon is a white square of 32x32 pixels.
 > The default icon is always loaded in memory and can be set again by passing the `tray_manager.Values.DEFAULT` as the `name` argument of the `.set_icon()` function.
 
 
-To load an icon, use the `.load_icon()` function and pass it **a file path, a encoded image, a PIL.Image object or any file that can be read and interpreted as an image by PIL**. You also need to pass a name that will be used as a key in the icons dictionnary to retreive your icon.
+To load an icon, use the `.load_icon()` function and pass it **a file path, a encoded image, a `PIL.Image` object or any file that can be read and interpreted as an image by PIL**. You also need to pass a name that will be used as a key in the icons dictionnary to retreive your icon.
 
 ```python
 from tray_manager import TrayManager
@@ -339,7 +339,7 @@ my_tray = TrayManager("My App", run_in_seperate_thread=True)
 my_tray.load_icon("my_icon_file_path.png", "my_new_icon")
 ```
 > [!WARNING]
-> tray_manager use a dictionnary to save your loaded icons, this means that loading an image using a name that was already used will overwrite the image that was previously loaded with that name.
+> `tray_manager` use a dictionnary to save your loaded icons, this means that loading an image using a name that was already used will overwrite the image that was previously loaded with that name.
 > The only exception to this is the default icon that cannot be edited.
 
 To set an icon, use the `.set_icon()` function and pass it the name (key) of your icon that you set when you loaded the icon.
@@ -355,9 +355,10 @@ my_tray.set_icon("my_new_icon")
 ### Hiding / Showing the app in the system tray
 Instead of killing the `tray_manager.TrayManager` object when you want it to stop being displayed in the system tray and creating a new one once you need it again, you can use the `.show()` and `.hide()` functions of the the `tray_manager.TrayManager` object to control whether the app is visible in the system tray or not. 
 
-You can specify the `default_show` argument of the tray_manager.TrayManager object when creating it to define whether it will be displayed or not once the object is created.
+> [!NOTE]
+> You can set the `default_show` argument of the `tray_manager.TrayManager` object to True or False when creating your TrayManager object to define whether the system tray icon will be displayed or not once the object is created.
 
-To show the app in the system tray, you can use the .show() function of the the tray_manager.TrayManager object as followed : 
+To show the app in the system tray, use the `.show()` function of the the `tray_manager.TrayManager` object as followed : 
 ```python
 from tray_manager import TrayManager
 my_tray = TrayManager("My App", run_in_seperate_thread=True)
