@@ -557,7 +557,7 @@ notification.notify("My App", "Hello World !)
 notification.remove_notification()
 ```
 
-> [!WARNING]
+> [!CAUTION]
 > By default the notification will **never** close by itself, make sure to close it before creating a new one.
 
 ## Advanced settings
