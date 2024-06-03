@@ -447,7 +447,7 @@ To make your item the default item of the menu / submenu and give it a bold look
 > [!NOTE]
 > You can only have 1 default item by menu / submenu. By default, there is no default item.
 
-To set the default attribut of the item, do as followed : 
+To set the `default` attribut of the item, do as followed : 
 
 When creating the item : 
 ```python
@@ -463,9 +463,9 @@ my_label.edit(default=True)
 ```
 
 ### Setting the radio look on the checkbox (A dot instead of a crossmark)
-If you want to give a new look to your regular checkbox crossmark, you can use the use_radio_look attribut of the CheckBox when creating / editing the CheckBox.
+If you want to give a new look to your regular checkbox crossmark, you can set the `use_radio_look` attribut of the CheckBox to `True` when creating / editing the CheckBox.
 
-To set the use_radio_look attribut of the item, you can do as followed : 
+To set the `use_radio_look` attribut of the item, do as followed : 
 
 When creating the item : 
 ```python
@@ -495,8 +495,70 @@ my_checkbox.edit(use_radio_look=True)
 ```
 
 ## Check for OS supported features
+Before using features of the `tray_manager package`, you **must** check if they are compatible with your OS. To do so, use the `tray_manager.Os_Support` object.
+There is 4 differents features that you need to check before using : 
+1. Os_Support.SUPPORT_MENU
+2. Os_Support.SUPPORT_DEFAULT
+3. Os_Support.SUPPORT_RADIO
+4. Os_Support.SUPPORT_NOTIFICATION [CURRENTLY UNAVAILBE]
+
+To know if your OS support a feature the corresponding `Os_Support` variable must be True.
+
+Example, to check if your OS support the menu, do as followed : 
+```python
+from tray_manager import Os_Support
+if Os_Support.SUPPORT_MENU:
+  print("The menu is supported by your OS")
+else:
+  print("The menu isn't supported by your OS")
+```
+
+> [!NOTE]
+> Here is a chart of the features that are ***supposed*** and ***not supposed*** to be supported by each OS and backends.
+> | Feature \ OS and backend |   Windows (win32)   |   Linux (gtk)   |   Linux (app-indicator)   |   Linux (ayatana-appindicator)   |   Linux (xorg)   |   MacOS (darwin)   |
+> |           :---:          |        :---:        |      :---:      |           :---:           |               :---:              |       :---:      |        :---:       |
+> |            Menu          |      Supported      |    Supported    |         Supported         |             Supported            |   Not Supported  |      Supported     |
+> |           Default        |      Supported      |    Supported    |       Not Supported       |           Not Supported          |     Supported    |    Not Supported   |
+> |            Radio         |      Supported      |    Supported    |         Supported         |             Supported            |     Supported    |    Not Supported   |
+> |        Notification      | Currently Unavailbe |     Unknown     |          Uknown           |              Unknown             |   Not Supported  |    Not Supported   |
 
 ## Notifications [CURRENTLY UNAVAIBLE]
+If you want to create a notification on the user's screen, you can use the `tray_manager.TrayManager.notification` object.
+
+To create a notification, use the `.notify()` function of the `tray_manager.TrayManager.notification` object as followed :
+```python
+from tray_manager import TrayManager
+my_tray = TrayManager("My App", run_in_separate_thread=True)
+notification = my_tray.notification
+
+notification.notify("My App", "Hello World !")
+```
+
+You can specify a delay after which the notification will be removed by passing a value **in seconds** to the `.notify()` function as the `remove_after_s` as followed :
+```python
+from tray_manager import TrayManager
+my_tray = TrayManager("My App", run_in_separate_thread=True)
+notification = my_tray.notification
+
+notification.notify("My App", "Hello World !", remove_after_s=10)
+# The notification will close by itself after 10 seconds
+```
+
+You can also use the `.remove_notification()` function to manually remove the notification as followed :
+```python
+from tray_manager import TrayManager
+my_tray = TrayManager("My App", run_in_separate_thread=True)
+notification = my_tray.notification
+
+notification.notify("My App", "Hello World !)
+
+# Some code here
+
+notification.remove_notification()
+```
+
+> [!WARNING]
+> By default the notification will **never** close by itself, make sure to close it before creating a new one.
 
 ## Advanced settings
 
