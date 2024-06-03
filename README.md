@@ -515,7 +515,7 @@ else:
 
 > [!NOTE]
 > Here is a chart of the features that are ***supposed*** and ***not supposed*** to be supported by each OS and backends.
-> | Feature \ OS and backend |   Windows (win32)   |   Linux (gtk)   |   Linux (app-indicator)   |   Linux (ayatana-appindicator)   |   Linux (xorg)   |   MacOS (darwin)   |
+> | Feature \ OS and backend |   Windows (win32)   |   Linux (gtk)   |   Linux (appindicator)    |   Linux (ayatana-appindicator)   |   Linux (xorg)   |   MacOS (darwin)   |
 > |           :---:          |        :---:        |      :---:      |           :---:           |               :---:              |       :---:      |        :---:       |
 > |            Menu          |      Supported      |    Supported    |         Supported         |             Supported            |   Not Supported  |      Supported     |
 > |           Default        |      Supported      |    Supported    |       Not Supported       |           Not Supported          |     Supported    |    Not Supported   |
@@ -561,5 +561,22 @@ notification.remove_notification()
 > By default the notification will **never** close by itself, make sure to close it before creating a new one.
 
 ## Advanced settings
+### Selecting a backend
+If you need specific features, you can set the `backend` argument of the `tray_manager.TrayManager` object to one of the `tray_manager.Backends` values.
+
+> [!NOTE]
+> By default pystray will use the best backend avaible on your os.
+
+> [!CAUTION]
+> You **MUST** use the backend from the `tray_manager.Backends` class, passing the value of one of the object of the class will raise an error.
+>
+> You **MUST** also use a backend compatible with you OS.
+> 
+> |    OS   |                        Backends                          |
+> |  :---:  |                         :---:                            |
+> | Windows |                        `win32`                           |
+> |  MacOS  |                       `darwin`                           |
+> |  Linux  |   `gtk`,  `appindicator`, `ayatana-appindicator`, `xorg` | 
+
 
 ## Examples
