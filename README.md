@@ -19,7 +19,6 @@ pip install tray-manager
 6. [Check for OS supported features](https://github.com/Adastram1/tray_manager/blob/main/README.md#check-for-os-supported-features)
 7. [Notifications](https://github.com/Adastram1/tray_manager/blob/main/README.md#notifications-currently-unavaible) [CURRENTLY UNAVAIBLE]
 8. [Advanced settings](https://github.com/Adastram1/tray_manager/blob/main/README.md#advanced-settings)
-9. [Examples](https://github.com/Adastram1/tray_manager/blob/main/README.md#examples)
 
 ## Create and use a TrayManager Object
 The main object of the librairy is the `tray_manager.TrayManager` object, it is the central element and can be considered as the icon in the system tray itself, it contains all the elements of our app.
@@ -570,13 +569,10 @@ If you need specific features, you can set the `backend` argument of the `tray_m
 > [!CAUTION]
 > You **MUST** use the backend from the `tray_manager.Backends` class, passing the value of one of the object of the class will raise an error.
 >
-> You **MUST** also use a backend compatible with you OS.
+> You **MUST** also use a backend compatible with you OS. 
 > 
 > |    OS   |                        Backends                          |
 > |  :---:  |                         :---:                            |
 > | Windows |                        `win32`                           |
 > |  MacOS  |                       `darwin`                           |
 > |  Linux  |   `gtk`,  `appindicator`, `ayatana-appindicator`, `xorg` | 
-
-
-## Examples
