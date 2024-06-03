@@ -356,7 +356,7 @@ my_tray.set_icon("my_new_icon")
 Instead of killing the `tray_manager.TrayManager` object when you want it to stop being displayed in the system tray and creating a new one once you need it again, you can use the `.show()` and `.hide()` functions of the the `tray_manager.TrayManager` object to control whether the app is visible in the system tray or not. 
 
 > [!NOTE]
-> You can set the `default_show` argument of the `tray_manager.TrayManager` object to True or False when creating your TrayManager object to define whether the system tray icon will be displayed or not once the object is created.
+> You can set the `default_show` argument of the `tray_manager.TrayManager` object to `True` or `False` when creating your `tray_manager.TrayManager` object to define whether the system tray icon will be displayed or not once the object is created.
 
 To show the app in the system tray, use the `.show()` function of the the `tray_manager.TrayManager` object as followed : 
 ```python
@@ -366,7 +366,7 @@ my_tray = TrayManager("My App", run_in_seperate_thread=True)
 my_tray.show()
 ```
 
-To hide the app in the system tray, you can use the .hide() function of the the tray_manager.TrayManager object as followed :
+To hide the app in the system tray, use the `.hide()` function of the the `tray_manager.TrayManager` object as followed :
 ```python
 from tray_manager import TrayManager
 my_tray = TrayManager("My App", run_in_seperate_thread=True)
@@ -375,9 +375,9 @@ my_tray.hide()
 ```
 
 ## Customize and edit the items
-To edit an already created item, you can use the .edit() function of the item, when doing so, you only need to specify which arguments you want to change, and the others will stay the same as they were.
+To edit an already created item, use the `.edit()` function of the item, when doing so, you only need to specify which arguments you want to change, and the others will stay the same as they were.
 
-To edit an item you can do as followed : 
+To edit an item, do as followed : 
 ```python
 from tray_manager import Button
 
@@ -396,6 +396,7 @@ my_button = Button("My Button", my_first_callback)
 # Second click
 -> World !
 ```
+
 You can custom the items in different ways such as : 
 
 1. [Enabling / Disabling the item (Gray look and non-responsive)](https://github.com/Adastram1/tray_manager/blob/main/README.md#enabling--disabling-the-item-gray-look-and-non-responsive)
@@ -403,9 +404,14 @@ You can custom the items in different ways such as :
 3. [Setting the radio look on the checkbox (A dot instead of a crossmark)](https://github.com/Adastram1/tray_manager/blob/main/README.md#setting-the-radio-look-on-the-checkbox-a-dot-instead-of-a-crossmark)
 
 ### Enabling / Disabling the item (Gray look and non-responsive)
-If you want to display the item but you want it to be non-responsive (for Button, CheckBox and Submenu) and look like a disabled item, you can use the .enable() and .disable() functions of the item. By default, every items are enabled. Note : every item can be disabled except for the separator.
+If you want to display the item but you want it to be non-responsive (for Button, CheckBox and Submenu) and look like a disabled item, you can use the `.enable()` and `.disable()` functions of the item.
 
-To enable your item, you can, use the .enable() function of the item as followed : 
+> [!NOTE]
+> By default, every items are enabled
+> 
+> Every item can be disabled except the separator.
+
+To enable your item, use the `.enable()` function of the item as followed : 
 ```python
 from tray_manager import CheckBox
 
@@ -420,7 +426,7 @@ my_checkbox = CheckBox("My CheckBox", checked_callback=checked_callback, uncheck
 my_checkbox.enable()
 ```
 
-To disable your item, you can, use the .disable() function of the item as followed : 
+To disable your item, use the `.disable()` function of the item as followed : 
 ```python
 from tray_manager import CheckBox
 
@@ -436,9 +442,12 @@ my_checkbox.disable()
 ```
 
 ### Setting the default attribut to the item (Bold look)
-To make your item the default of the menu / submenu and give it a bold look, you can set the default attribut when creating / editing the item. You can only have 1 default item by menu / submenu. By default, there is no default item.
+To make your item the default item of the menu / submenu and give it a bold look, you can set the `default` attribut when creating / editing the item to `True`. 
 
-To set the default attribut of the item, you can do as followed : 
+> [!NOTE]
+> You can only have 1 default item by menu / submenu. By default, there is no default item.
+
+To set the default attribut of the item, do as followed : 
 
 When creating the item : 
 ```python
