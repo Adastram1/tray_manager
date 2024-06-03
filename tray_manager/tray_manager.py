@@ -24,7 +24,7 @@ class MenuAddException(Exception):
         self.submenu = submenu
     
     def __str__(self) -> str:
-        return f"""A menu cannot be added to a submenu. Exception raised by "{self.submenu.text}" ({self.submenu})."""
+        return f"""A menu cannot be added to a submenu. Exception raised by "{self.submenu._text}" ({self.submenu})."""
     
 class CircularAddException(Exception):
     def __init__(self, submenu: 'Submenu', added_submenu: 'Submenu') -> None:
@@ -33,7 +33,7 @@ class CircularAddException(Exception):
         self.added_submenu = added_submenu
 
     def __str__(self) -> str:
-        return f"""The submenu "{self.submenu.text}" ({self.submenu}) is contained in the submenu "{self.added_submenu.text}" ({self.added_submenu}) that you're trying to add. That is prohibited as it causes a circular add"""
+        return f"""The submenu "{self.submenu.text}" ({self.submenu}) is contained in the submenu "{self.added_submenu._text}" ({self.added_submenu}) that you're trying to add. That is prohibited as it causes a circular add"""
 
 class TooManyDefaultItems(Exception):
     def __init__(self, menu: Union['Menu', 'Submenu'], items: list[Union['Label', 'Button', 'CheckBox', 'Submenu']]) -> None:
@@ -41,22 +41,49 @@ class TooManyDefaultItems(Exception):
         self.menu = menu
 
         if len(items) == 2:
-            text = f'"{items[0].text}" ({items[0]}) and "{items[1].text}" ({items[1]})'
+            text = f'"{items[0]._text}" ({items[0]}) and "{items[1]._text}" ({items[1]})'
         else:
             text = ''
             for item in items[0: -2]:
-                text += f'"{item.text}" ({item}), '
-            text += f'"{items[-2].text}" ({items[-2]}) and "{items[-1].text}" ({items[-1]})'
+                text += f'"{item._text}" ({item}), '
+            text += f'"{items[-2]._text}" ({items[-2]}) and "{items[-1]._text}" ({items[-1]})'
 
         if isinstance(self.menu, Menu):
             self.text =  f"""The menu can't contain more than one item with the default option.\nProblem with : {text}."""
         else:
-            self.text =  f"""The submenu "{self.menu.text}" ({self.menu}) can't contain more than one item with the default option.\nProblem with : {text}."""
+            self.text =  f"""The submenu "{self.menu._text}" ({self.menu}) can't contain more than one item with the default option.\nProblem with : {text}."""
 
     def __str__(self) -> str:
         return self.text
             
-    
+class UnknownBackend(Exception):
+    def __init__(self, backend: str) -> None:
+        """Exception raised when the specified backend isn't a correct backend."""
+        self.backend = backend
+
+    def __str__(self) -> str:
+        return f"""The backend "{self.backend}" isn't a correct backend, please use one of the backend provided by the Backends class"""
+
+class UncompatibleBackend(Exception):
+    def __init__(self, os: str, backend: str, os_backends: Union[list['Backends'], 'Backends', None]) -> None:
+        """Exception raised when the specified backend isn't supported on the OS."""
+        self.os = os
+        self.backend = backend
+        self.os_backends = os_backends
+
+    def __str__(self) -> str:
+        if self.os_backends:
+            if isinstance(self.os_backends, list):
+                text = "Please use one of the following backends : "
+                for backend in range(len(self.os_backends) - 1):
+                    text += f"{backend}, "
+                text += f"or {self.os_backends[-1]} for {self.os}."
+            else:
+                text = f"Please use {self.os_backends} for {self.os}."
+        else:
+            text = "Please use win32 for Windows, darwin for MacOS and gtk, xorg, appindicator or ayatana-appindicator for Linux."
+        return f"""The backend "{self.backend}" isn't supported on your OS ({self.os}). {text}"""
+
 class UnsuportedFeature(Exception):
     def __init__(self) -> None:
         """Exception raised when a feature is called but isn't avaible on the OS."""
@@ -77,7 +104,7 @@ class DefaultNotSupported(UnsuportedFeature):
         self.item = item
 
     def __str__(self) -> str:
-        return f"""The default feature isn't supported on your OS ({p_system()}). This feature is actually only supported on Windows (backend : win32), and Linux (backend : gtk and xorg).\nException raised by "{self.item.text}" ({self.item})."""
+        return f"""The default feature isn't supported on your OS ({p_system()}). This feature is actually only supported on Windows (backend : win32), and Linux (backend : gtk and xorg).\nException raised by "{self.item._text}" ({self.item})."""
 
 class RadioNotSupported(UnsuportedFeature):
     def __init__(self, item: 'CheckBox') -> None:
@@ -85,7 +112,7 @@ class RadioNotSupported(UnsuportedFeature):
         self.item = item
 
     def __str__(self) -> str:
-            return f"""The radio feature isn't supported on your OS ({p_system()}). This feature is actually only supported on Windows (backend : win32) and Linux (backend : gtk, xorg, appindicator and ayatana-appindicator).\nException raised by "{self.item.text}" ({self.item})."""
+            return f"""The radio feature isn't supported on your OS ({p_system()}). This feature is actually only supported on Windows (backend : win32) and Linux (backend : gtk, xorg, appindicator and ayatana-appindicator).\nException raised by "{self.item._text}" ({self.item})."""
 
 class NotificationNotSupported(UnsuportedFeature):
     def __init__(self) -> None:
@@ -98,6 +125,16 @@ class Values(Enum):
     """The class containing the custom values used in TrayManager."""
     DEFAULT = "DefaultValue"
     DISABLED = "DisabledValue"
+
+class Backends(Enum):
+    """The class containing the backends avaible in TrayManager."""
+    WIN32 = "win32"
+    GTX = "gtx"
+    APP_INDICATOR = "app-indicator"
+    AYATANA_APP_INDICATOR = "ayatana-appindicator"
+    XORG = "xorg"
+    DARWIN = "darwin"
+
 
 class __OsSupport:
     def __init__(self) -> None:
@@ -775,14 +812,14 @@ class Menu:
 
 
 class TrayManager:
-    def __init__(self, app_name: str, default_show: bool = True, run_in_separate_thread: bool = False, setup: FunctionType | None = None, setup_args: tuple | None = None, backend: str = None) -> None:
+    def __init__(self, app_name: str, default_show: bool = True, run_in_separate_thread: bool = False, setup: FunctionType | None = None, setup_args: tuple | None = None, backend: Backends = None) -> None:
         """Create a pystray.Icon object linked to a Menu() object.\n
             Parameters
             ----------
             * app_name: str\n
-                The name of the app in the notification tray.
+                The name of the app in the system tray.
             * default_show: bool (Facultative)\n
-                Define if the icon is displayed in the notifaction tray when you create your TrayManager object.
+                Define if the icon is displayed in the system tray when you create your TrayManager object.
             * run_in_separate_thread: bool (Facultative)\n
                 Must be set on false for platform compatibility, if you only target usage on Windows, setting that option to True is safe. Note : using that option combined to setup will result in creating a new thread for the setup function in the newly created thread of this option
             * setup: FunctionType (Facultative)\n
@@ -798,14 +835,37 @@ class TrayManager:
         self._icons = {str: Image.Image}
 
         if backend:
-            os_environ["PYSTRAY_BACKEND"] = backend
+            if isinstance(backend, Backends):
+                os = p_system()
+
+                if os == "Linux":
+                    avaible_backends = [Backends.AYATANA_APP_INDICATOR, Backends.APP_INDICATOR, Backends.GTX, Backends.XORG]
+                    if backend not in avaible_backends:
+                        raise UncompatibleBackend(os, backend, avaible_backends)
+                    
+                elif os == "Darwin":
+                    if backend is not Backends.DARWIN:
+                        raise UncompatibleBackend(os, backend, Backends.DARWIN)
+
+                elif os == "Windows":
+                    if backend is not Backends.WIN32:
+                        raise UncompatibleBackend(os, backend, Backends.WIN32)
+                    
+                else:
+                    raise UncompatibleBackend("Unrecognised OS", backend, None)
+                
+                os_environ["PYSTRAY_BACKEND"] = backend.value
+
+            else:
+                raise UnknownBackend(backend)
 
         if OsSupport.SUPPORT_MENU:
             # Create the pystray_Icon object
             self.tray = pystray_Icon(app_name, self._default_icon, app_name, pystray_Menu(lambda: self.menu._create_menu())) # Here we use lamda to allow the menu to dynamically update
         else:
             self.tray = pystray_Icon(app_name, self._default_icon, app_name, None)
-        
+            self.menu = None
+            
         if run_in_separate_thread:
             #Run it in different thread (pystray.Icon.run() is a blocking function)
             thread = Thread(target=self.__run, args=(default_show, setup, setup_args))
@@ -815,7 +875,7 @@ class TrayManager:
         return
 
     def set_app_name(self, name: str) -> None:
-        """Set the name of the app in the notification tray."""
+        """Set the name of the app in the system tray."""
         self.tray.title = name
         return
 
@@ -836,33 +896,33 @@ class TrayManager:
         return
 
     def set_icon(self, name: Union[str, Values.DEFAULT], show: bool = True) -> None:
-        """Set the icon of the app in the notification tray from an icon loaded in the icons dict.\n
+        """Set the icon of the app in the system tray from an icon loaded in the icons dict.\n
             Parameters
             ----------
             * name: str | tray_manager.Values.DEFAULT\n
                 The name of the icon to use (key) of the icon in the icons dict, if the name is tray_manager.Values.DEFAULT, set it to the default icon.
             * show: bool (Facultative)\n
-                Define if the icon should be displayed in the notification tray if it was previously hidden."""
+                Define if the icon should be displayed in the system tray if it was previously hidden."""
 
-        # Set the icon of the app in the notification tray
+        # Set the icon of the app in the system tray
         if name is Values.DEFAULT:
             self.tray.icon = self._default_icon
         else:
             self.tray.icon = self._icons.get(name, self._default_icon)
 
-        if show: # Show the icon in the notification tray
+        if show: # Show the icon in the system tray
             self.show()
         return
 
     def show(self) -> None:
-        """Show the icon in the notification tray."""
-        # Show the icon in the notification tray
+        """Show the icon in the system tray."""
+        # Show the icon in the system tray
         self.tray.visible = True
         return
 
     def hide(self) -> None:
-        """Hide the icon in the notification tray."""
-        # Hide the icon in the notification tray
+        """Hide the icon in the system tray."""
+        # Hide the icon in the system tray
         self.tray.visible = False
         return
 
