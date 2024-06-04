@@ -301,7 +301,7 @@ class Button(Item):
         ----------
         * text: str\n
             The text of the button.
-        * callback: FunctionType or MethodType or LambdaType (Facultative)\n
+        * callback: FunctionType, MethodType or LambdaType (Facultative)\n
             The function to callback when button is clicked.
         * args: tuple (Facultative)\n
             The arguments to pass to the callback, MUST be a tuple.
@@ -323,7 +323,7 @@ class Button(Item):
         ----------
         * text: str (Facultative)\n
             The text of the button, if not specified, don't change.
-        * callback: FunctionType or MethodType or LambdaType (Facultative)\n
+        * callback: FunctionType, MethodType or LambdaType (Facultative)\n
             The function to callback when button is clicked, if None, don't callback, if not specified, don't change.
         * args: tuple (Facultative)\n
             The arguments to pass to the callback, MUST be a tuple, if not specified, don't change.
@@ -390,11 +390,11 @@ class CheckBox(Item):
             The text of the checkbox.
         * check_default: bool | None (Facultative)\n
             The status of the checkbox at start (checked (True) / not checked (False)) if None, the checkmark will not display.
-        * checked_callback: FunctionType or MethodType or LambdaType (Facultative)\n
+        * checked_callback: FunctionType, MethodType or LambdaType (Facultative)\n
             The function to callback when the checkbox is clicked and switch from unchecked to checked.
         * checked_callback_args: tuple (Facultative)\n
             The arguments to pass to the checked_callback, MUST be a tuple.
-        * unchecked_callback: FunctionType or MethodType or LambdaType (Facultative)\n
+        * unchecked_callback: FunctionType, MethodType or LambdaType (Facultative)\n
             The functiion to callback when the checkbox is clicked and switch from checked to unchecked.
         * unchecked_callback_args: tuple (Facultative)\n
             The arguments to pass to the unchecked_callback, MUST be a tuple.
@@ -434,11 +434,11 @@ class CheckBox(Item):
             The text of the checkbox, if not specified, don't change.
         * check_default: bool | None (Facultative)\n
             The status of the checkbox at start (checked (True) / not checked (False)) if None, the checkmark will not display, if not specified, don't change.
-        * checked_callback: FunctionType or MethodType or LambdaType (Facultative)\n
+        * checked_callback: FunctionType, MethodType or LambdaType (Facultative)\n
             The function to callback when the checkbox is clicked and switch from unchecked to checked, if not specified, don't change.
         * checked_callback_args: tuple (Facultative)\n
             The arguments to pass to the checked_callback, MUST be a tuple, if not specified, don't change.
-        * unchecked_callback: FunctionType or MethodType or LambdaType (Facultative)\n
+        * unchecked_callback: FunctionType, MethodType or LambdaType (Facultative)\n
             The functiion to callback when the checkbox is clicked and switch from checked to unchecked, if not specified, don't change.
         * unchecked_callback_args: tuple (Facultative)\n
             The arguments to pass to the unchecked_callback, MUST be a tuple, if not specified, don't change.
