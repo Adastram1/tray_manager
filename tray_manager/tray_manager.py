@@ -1,6 +1,6 @@
 from pystray import Icon as pystray_Icon, Menu as pystray_Menu, MenuItem as pystray_MenuItem
 from typing import Optional, Union
-from types import FunctionType
+from types import FunctionType, MethodType, LambdaType
 from pystray._base import Icon as pystray_Icon_Class
 from threading import Thread
 from PIL import Image
@@ -295,13 +295,13 @@ class Label(Item):
 
 
 class Button(Item):
-    def __init__(self, text: str, callback: FunctionType | None, args: tuple | None = None, default: bool = False) -> None:
+    def __init__(self, text: str, callback: FunctionType | MethodType | LambdaType | None, args: tuple | None = None, default: bool = False) -> None:
         """Create a Button item.\n
         Parameters
         ----------
         * text: str\n
             The text of the button.
-        * callback: FunctionType (Facultative)\n
+        * callback: FunctionType or MethodType or LambdaType (Facultative)\n
             The function to callback when button is clicked.
         * args: tuple (Facultative)\n
             The arguments to pass to the callback, MUST be a tuple.
@@ -317,13 +317,13 @@ class Button(Item):
         self.item = self.__create_item() # Create our item
         return
     
-    def edit(self, text: str = Values.DEFAULT, callback: FunctionType | None = Values.DEFAULT, args: tuple | None = Values.DEFAULT, default: bool = Values.DEFAULT) -> None:
+    def edit(self, text: str = Values.DEFAULT, callback: FunctionType | MethodType | LambdaType | None = Values.DEFAULT, args: tuple | None = Values.DEFAULT, default: bool = Values.DEFAULT) -> None:
         """Edit the Button item.\n
         Parameters
         ----------
         * text: str (Facultative)\n
             The text of the button, if not specified, don't change.
-        * callback: FunctionType (Facultative)\n
+        * callback: FunctionType or MethodType or LambdaType (Facultative)\n
             The function to callback when button is clicked, if None, don't callback, if not specified, don't change.
         * args: tuple (Facultative)\n
             The arguments to pass to the callback, MUST be a tuple, if not specified, don't change.
@@ -363,7 +363,7 @@ class Button(Item):
     
     def __callback(self, tray: pystray_Icon_Class, item: pystray_MenuItem) -> None:
         """Manage the callback of the button."""
-        if isinstance(self._callback, FunctionType): # Check if the callback is a function
+        if isinstance(self._callback, FunctionType | MethodType | LambdaType): # Check if the callback is a function
             if isinstance(self._callback_args, tuple): # Check if the args is a tuple
                 self._callback(*self._callback_args) # Call the callback with the given arguments
 
@@ -382,7 +382,7 @@ class Button(Item):
 
 
 class CheckBox(Item):
-    def __init__(self, text: str, check_default: bool | None = False, checked_callback: FunctionType | None = None, checked_callback_args: tuple | None = None, unchecked_callback: FunctionType | None = None, unchecked_callback_args: tuple | None = None, use_radio_look: bool = False, default: bool = False) -> None:
+    def __init__(self, text: str, check_default: bool | None = False, checked_callback: FunctionType | MethodType | LambdaType | None = None, checked_callback_args: tuple | None = None, unchecked_callback: FunctionType | MethodType | LambdaType | None = None, unchecked_callback_args: tuple | None = None, use_radio_look: bool = False, default: bool = False) -> None:
         """Create a CheckBox item.\n
         Parameters
         ----------
@@ -390,11 +390,11 @@ class CheckBox(Item):
             The text of the checkbox.
         * check_default: bool | None (Facultative)\n
             The status of the checkbox at start (checked (True) / not checked (False)) if None, the checkmark will not display.
-        * checked_callback: FunctionType (Facultative)\n
+        * checked_callback: FunctionType or MethodType or LambdaType (Facultative)\n
             The function to callback when the checkbox is clicked and switch from unchecked to checked.
         * checked_callback_args: tuple (Facultative)\n
             The arguments to pass to the checked_callback, MUST be a tuple.
-        * unchecked_callback: FunctionType (Facultative)\n
+        * unchecked_callback: FunctionType or MethodType or LambdaType (Facultative)\n
             The functiion to callback when the checkbox is clicked and switch from checked to unchecked.
         * unchecked_callback_args: tuple (Facultative)\n
             The arguments to pass to the unchecked_callback, MUST be a tuple.
@@ -426,7 +426,7 @@ class CheckBox(Item):
         self.item = self.__create_item()
         return
 
-    def edit(self, text: str = Values.DEFAULT, check_default: bool | None = Values.DEFAULT, checked_callback: FunctionType | None = Values.DEFAULT, checked_callback_args: tuple | None = Values.DEFAULT, unchecked_callback: FunctionType | None = Values.DEFAULT, unchecked_callback_args: tuple | None = Values.DEFAULT, use_radio_look: bool = Values.DEFAULT, default: bool = Values.DEFAULT) -> None:
+    def edit(self, text: str = Values.DEFAULT, check_default: bool | None = Values.DEFAULT, checked_callback: FunctionType | MethodType | LambdaType | None = Values.DEFAULT, checked_callback_args: tuple | None = Values.DEFAULT, unchecked_callback: FunctionType | MethodType | LambdaType | None = Values.DEFAULT, unchecked_callback_args: tuple | None = Values.DEFAULT, use_radio_look: bool = Values.DEFAULT, default: bool = Values.DEFAULT) -> None:
         """Edit the CheckBox item.\n
         Parameters
         ----------
@@ -434,11 +434,11 @@ class CheckBox(Item):
             The text of the checkbox, if not specified, don't change.
         * check_default: bool | None (Facultative)\n
             The status of the checkbox at start (checked (True) / not checked (False)) if None, the checkmark will not display, if not specified, don't change.
-        * checked_callback: FunctionType (Facultative)\n
+        * checked_callback: FunctionType or MethodType or LambdaType (Facultative)\n
             The function to callback when the checkbox is clicked and switch from unchecked to checked, if not specified, don't change.
         * checked_callback_args: tuple (Facultative)\n
             The arguments to pass to the checked_callback, MUST be a tuple, if not specified, don't change.
-        * unchecked_callback: FunctionType (Facultative)\n
+        * unchecked_callback: FunctionType or MethodType or LambdaType (Facultative)\n
             The functiion to callback when the checkbox is clicked and switch from checked to unchecked, if not specified, don't change.
         * unchecked_callback_args: tuple (Facultative)\n
             The arguments to pass to the unchecked_callback, MUST be a tuple, if not specified, don't change.
@@ -528,14 +528,14 @@ class CheckBox(Item):
         self._update() # Trigger a menu update
         
         if self._status["current"] == True:
-            if isinstance(self._checked_callback, FunctionType): # Check if the checked_callback is a function
+            if isinstance(self._checked_callback, FunctionType | MethodType | LambdaType): # Check if the checked_callback is a function
                 if isinstance(self._checked_callback_args, tuple): # Check if the args is a tuple
                     self._checked_callback(*self._checked_callback_args) # Call the callback with the given arguments
                 else:
                     self._checked_callback() # Call the callback without arguments
 
         elif self._status["current"] == False:
-            if isinstance(self._unchecked_callback, FunctionType): # Check if the unchecked_callback is a function
+            if isinstance(self._unchecked_callback, FunctionType | MethodType | LambdaType): # Check if the unchecked_callback is a function
                 if isinstance(self._unchecked_callback_args, tuple): # Check if the args is a tuple
                     self._unchecked_callback(*self._unchecked_callback_args) # Call the callback with the given arguments
                 else:
@@ -827,7 +827,7 @@ class Menu:
 
 
 class TrayManager:
-    def __init__(self, app_name: str, default_show: bool = True, run_in_separate_thread: bool = False, setup: FunctionType | None = None, setup_args: tuple | None = None, backend: Backends = None) -> None:
+    def __init__(self, app_name: str, default_show: bool = True, run_in_separate_thread: bool = False, setup: FunctionType | MethodType | LambdaType | None = None, setup_args: tuple | None = None, backend: Backends = None) -> None:
         """Create a pystray.Icon object linked to a Menu() object.\n
             Parameters
             ----------
@@ -837,7 +837,7 @@ class TrayManager:
                 Define if the icon is displayed in the system tray when you create your TrayManager object.
             * run_in_separate_thread: bool (Facultative)\n
                 Must be set on false for platform compatibility, if you only target usage on Windows, setting that option to True is safe. Note : using that option combined to setup will result in creating a new thread for the setup function in the newly created thread of this option
-            * setup: FunctionType (Facultative)\n
+            * setup: FunctionType or MethodType or LambdaType (Facultative)\n
                 The function to run in a separate thread when the pystray_Icon run (Can be used to run your app while having pystray's loop running in the main thread (Platform compatibility)).
             * setup_args: tuple (Facultative)\n
                 The arguments to pass to the setup function when the pystray_Icon run, MUST be a tuple.
@@ -948,20 +948,20 @@ class TrayManager:
         self.tray.stop() # Stop the pystray_Icon loop
         return items # Return the items
 
-    def __run(self, default_show: bool, setup: FunctionType | None, setup_args: tuple | None) -> None:
+    def __run(self, default_show: bool, setup: FunctionType | MethodType | LambdaType | None, setup_args: tuple | None) -> None:
         """Run the pystray_Icon object."""
 
         callback = lambda _: self.__run_callback(default_show, setup, setup_args) # We use lamda _: To avoid the problems related to the number of arguments
         self.tray.run(callback)
         return
 
-    def __run_callback(self, default_show: bool, setup: FunctionType | None, setup_args: tuple | None):
+    def __run_callback(self, default_show: bool, setup: FunctionType | MethodType | LambdaType | None, setup_args: tuple | None):
         """Manage the callback of the __run function."""
         if default_show:
             self.show()
         else:
             self.hide()
-        if isinstance(setup, FunctionType):
+        if isinstance(setup, FunctionType | MethodType | LambdaType):
             if isinstance(setup_args, tuple):
                 setup(*setup_args)
             else:
