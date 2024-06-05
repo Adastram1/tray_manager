@@ -847,7 +847,7 @@ class TrayManager:
         self.menu = Menu(self) # Create the menu item
         self.notification = Notification(self)
         self._default_icon = Image.new("L", (32, 32), 255) # Create the default icon
-        self._icons = {str: Image.Image}
+        self._icons: dict[str: Image.Image] = {}
 
         if backend:
             if isinstance(backend, Backends):
@@ -927,6 +927,7 @@ class TrayManager:
 
         if show: # Show the icon in the system tray
             self.show()
+        self.tray.update_menu()
         return
 
     def show(self) -> None:
