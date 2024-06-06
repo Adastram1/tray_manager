@@ -887,6 +887,9 @@ class TrayManager:
             thread.start()
         else:
             self.__run(default_show, setup, setup_args) # Run the pystray loop in the main thread
+
+        while default_show and not self.tray.visible:
+            sleep(0.1)
         return
 
     def set_app_name(self, name: str) -> None:
