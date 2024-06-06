@@ -930,7 +930,6 @@ class TrayManager:
 
         if show: # Show the icon in the system tray
             self.show()
-        self.tray.update_menu()
         return
 
     def show(self) -> None:

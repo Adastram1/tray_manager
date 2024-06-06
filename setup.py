@@ -3,7 +3,7 @@ from setuptools import setup, find_packages
 # Setting up
 setup(
     name="tray_manager",
-    version="1.0.2",
+    version="1.0.3",
     url="https://github.com/Adastram1/tray_manager",
     license="GNU Lesser General Public License v3 (LGPLv3)",
 
