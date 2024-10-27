@@ -36,7 +36,7 @@ To stop the app, you need to use the `.kill()` function as followed :
 ```python
 from tray_manager import TrayManager, Label, Button
 
-my_tray = TrayManager("My App", run_in_seperate_thread=True)
+my_tray = TrayManager("My App", run_in_separate_thread=True)
 my_menu = my_tray.menu
 
 def my_callback():
@@ -241,7 +241,7 @@ The `tray_manager.Menu` is one of the central elements of this library, it works
 To use the menu, acces the `tray_manager.TrayManager.menu` object as followed : 
 ```python
 from tray_manager import TrayManager
-my_tray = TrayManager("My App", run_in_seperate_thread=True)
+my_tray = TrayManager("My App", run_in_separate_thread=True)
 my_menu = my_tray.menu
 ```
 
@@ -249,7 +249,7 @@ To add an item to the menu, use the `.add()` function as followed :
 
 ```python
 from tray_manager import TrayManager, Label
-my_tray = TrayManager("My App", run_in_seperate_thread=True)
+my_tray = TrayManager("My App", run_in_separate_thread=True)
 my_menu = my_tray.menu
 
 my_label = Label("My Label")
@@ -261,7 +261,7 @@ To remove an item from the menu, you can use the `.remove()` function as followe
 
 ```python
 from tray_manager import TrayManager, Label
-my_tray = TrayManager("My App", run_in_seperate_thread=True)
+my_tray = TrayManager("My App", run_in_separate_thread=True)
 my_menu = my_tray.menu
 
 my_label = Label("My Label")
@@ -282,7 +282,7 @@ from tray_manager import TrayManager, Menu, Label, Button
 def my_callback()
   print("Hello")
 
-my_tray = TrayManager("My App", run_in_seperate_thread=True)
+my_tray = TrayManager("My App", run_in_separate_thread=True)
 my_menu = my_tray.menu
 
 my_label = Label("My Label")
@@ -298,7 +298,7 @@ my_menu.get_items()
 To update the menu items (The items contained inside the menu), use the `.update()` function.
 ```python
 from tray_manager import TrayManager
-my_tray = TrayManager("My App", run_in_seperate_thread=True)
+my_tray = TrayManager("My App", run_in_separate_thread=True)
 my_menu = my_tray.menu
 
 my_menu.update()
@@ -317,7 +317,7 @@ You can customize your TrayManager object in different ways such as :
 To set a new name for your app use the `.set_app_name()` function as followed :
 ```python
 from tray_manager import TrayManager
-my_tray = TrayManager("My App", run_in_seperate_thread=True)
+my_tray = TrayManager("My App", run_in_separate_thread=True)
 
 my_tray.set_app_name("My new App")
 ```
@@ -333,7 +333,7 @@ To load an icon, use the `.load_icon()` function and pass it **a file path, a en
 
 ```python
 from tray_manager import TrayManager
-my_tray = TrayManager("My App", run_in_seperate_thread=True)
+my_tray = TrayManager("My App", run_in_separate_thread=True)
 
 my_tray.load_icon("my_icon_file_path.png", "my_new_icon")
 ```
@@ -345,7 +345,7 @@ To set an icon, use the `.set_icon()` function and pass it the name (key) of you
 
 ```python
 from tray_manager import TrayManager
-my_tray = TrayManager("My App", run_in_seperate_thread=True)
+my_tray = TrayManager("My App", run_in_separate_thread=True)
 
 my_tray.load_icon("my_icon_file_path.png", "my_new_icon")
 my_tray.set_icon("my_new_icon")
@@ -360,7 +360,7 @@ Instead of killing the `tray_manager.TrayManager` object when you want it to sto
 To show the app in the system tray, use the `.show()` function of the the `tray_manager.TrayManager` object as followed : 
 ```python
 from tray_manager import TrayManager
-my_tray = TrayManager("My App", run_in_seperate_thread=True)
+my_tray = TrayManager("My App", run_in_separate_thread=True)
 
 my_tray.show()
 ```
@@ -368,7 +368,7 @@ my_tray.show()
 To hide the app in the system tray, use the `.hide()` function of the the `tray_manager.TrayManager` object as followed :
 ```python
 from tray_manager import TrayManager
-my_tray = TrayManager("My App", run_in_seperate_thread=True)
+my_tray = TrayManager("My App", run_in_separate_thread=True)
 
 my_tray.hide()
 ```
