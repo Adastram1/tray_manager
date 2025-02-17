@@ -6,18 +6,15 @@ setup(
     version="1.0.5",
     url="https://github.com/Adastram1/tray_manager",
     license="GNU Lesser General Public License v3 (LGPLv3)",
-
     author="Adastram",
     author_email="",
-    
-    description='An "easier" version to use of the pystray librairy (https://github.com/moses-palmer/pystray by Moses Palmér)',
+    description='An "easier" version to use of the pystray library (https://github.com/moses-palmer/pystray by Moses Palmér)',
     long_description=open('README.md').read(),
     long_description_content_type="text/markdown",
-
     packages=find_packages(),
     include_package_data=True,
-    requires=['pystray', 'pillow'],
-
+    install_requires=['pystray', 'pillow'],
+    setup_requires=['setuptools>=42.0.0'],
     keywords=['python', 'manager', 'system tray', 'pystray'],
     classifiers=[
         "Development Status :: 4 - Beta",
@@ -32,3 +29,4 @@ setup(
         "Programming Language :: Python :: 3"
     ]
 )
+
