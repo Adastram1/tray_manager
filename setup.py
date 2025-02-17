@@ -3,7 +3,7 @@ from setuptools import setup, find_packages
 # Setting up
 setup(
     name="tray_manager",
-    version="1.1.0",
+    version="1.0.5",
     url="https://github.com/Adastram1/tray_manager",
     license="GNU Lesser General Public License v3 (LGPLv3)",
 
@@ -21,13 +21,13 @@ setup(
     keywords=['python', 'manager', 'system tray', 'pystray'],
     classifiers=[
         "Development Status :: 4 - Beta",
-        'Intended Audience :: End Users/Desktop',
+        "Intended Audience :: End Users/Desktop",
         "Intended Audience :: Developers",
         "License :: OSI Approved :: GNU Lesser General Public License v3 (LGPLv3)",
         "Operating System :: Microsoft :: Windows",
-        'Operating System :: MacOS :: MacOS X',
-        'Operating System :: POSIX :: Linux',
-        'Topic :: Desktop Environment',
+        "Operating System :: MacOS :: MacOS X",
+        "Operating System :: POSIX :: Linux",
+        "Topic :: Desktop Environment",
         "Programming Language :: Python",
         "Programming Language :: Python :: 3"
     ]
