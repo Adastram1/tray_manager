@@ -1,2 +1,2 @@
 pystray==0.19.5
-pillow==10.2.0
+pillow==11.2.1
